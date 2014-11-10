@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+var s=[];
+s=['spring','1']
+console.log(typeof (s))
+
+
+
+
+
+/*
+myname = "global"; // 全局变量
+function func() {
+    alert(myname); // "undefined"
+    var myname = "local";
+    alert(myname); // "local"
+}
+func();*/
+
+
+/*
+var a=123;
+function foo(){
+    bit = 2;
+}
+console.log(bit)
+*/
+
+/*
+var a= [{
+    price :16
+},
+    {
+        price:12.3
+    },
+    {
+        price:15.5
+    },
+    {
+        price:13
+    }
+];
+//  function fels(bbox) {
+    function foo(bbox){
+        return (Math.ceil(bbox.price) > bbox.price)
+    }
+   */
+/* if (foo()) {
+        //str1[u] = "0(元)";
+        return false;
+    } else {
+        //str1[u] = ".00(元)";
+        return true;
+    }*//*
+
+var str;
+function math(a){
+    var str1=[];
+    for (var u=0;u<a.length;u++){           //得出商品的.00或者0
+        if(foo(a)){
+            str1[u] ="0(元)";
+        }else{
+            str1[u] =".00(元)";
+        }
+    }
+    return str1;
+}
+function math1(a){
+    var str1=[];
+    for (var u=0;u<a.length;u++){           //得出商品的.00或者0
+        if(foo(a)){
+            str1[u] ="0(元)";
+        }else{
+            str1[u] =".00(元)";
+        }
+    }
+    return str1;
+}
+
+str =math(a);
+console.log(str);
+*/
+
+
+
+
+//函数prototype方法的改写，调用其方法，以及函数私有属性的赋值与调用
+/*
+var User = function(name){
+    var name = arguments[0];
+    this.getName = function(){
+        return name;
+    };
+    this.getajax =function(){
+        var a = [{name:"12",price:20},{name:"13",price:30}];
+        return a;
+    }
+};
+    User.prototype.print = function(aq){
+        var b =this.getajax();
+        aq = b;
+        console.log(b);
+        return aq;
+    };
+
+    var user = new User("test");
+    var aq ;
+   // console.log(user.name);
+   // console.log(user.getName());
+    console.log(user.print(aq));*/
+
+
+
+
+
+
+
+
+
+//继承对象的私有属性赋值及其原型的关系
+/*
+
+var Robot = function(name) {        //声明一个构造函数
+    this.name = name;
+    this.say = function(){
+        console.log(this.name)
+    }
+};
+var info = { age: 12, sex: "boy" };
+Robot.prototype = info;
+
+var robot = new Robot("bower");
+robot.name = "cup";
+robot.age = 13;
+
+console.log(robot.age);
+
+
+*/
+
+
+/*
+var Robot = function(name) { this.name = name; };
+Robot.prototype = { age: 12, sex: "boy" };
+var robot = new Robot("cup");
+Robot.prototype.age = 13;
+console.log(robot.__proto__)
+*/
+
+
+
+
+
+
+
+/*
+
+    function apple(){
+
+    }
+    apple.prototype.print =function(b){
+        console.log(b);
+    };
+    var b ="fengyangqijun";
+
+    a=new apple();
+    a.print(b);
+
+*/
+
+
+
+
+    /*var a=13;
+    var b= Math.ceil(a);
+
+    console.log(Math.ceil(a));*/
+/*
+var a = [
+    {
+        barcode: 'ITEM000000',
+        name: '可口可乐',
+        unit: '瓶',
+        price: 3.00
+    },
+    {
+        barcode: 'ITEM000001',
+        name: '雪碧',
+        unit: '瓶',
+        price: 3.00
+    },
+    {
+        barcode: 'ITEM000002',
+        name: '苹果',
+        unit: '斤',
+        price: 5.50
+    },
+    {
+        barcode: 'ITEM000003',
+        name: '荔枝',
+        unit: '斤',
+        price: 15.00
+    },
+    {
+        barcode: 'ITEM000004',
+        name: '电池',
+        unit: '个',
+        price: 2.00
+    },
+    {
+        barcode: 'ITEM000005',
+        name: '方便面',
+        unit: '袋',
+        price: 4.50
+    }
+];
+function print(a) {
+    console.log(a[1].barcode);
+
+}
+print(a);*/
+   /* inputs = [
+        'ITEM000001',
+        'ITEM000001',
+        'ITEM000001',
+        'ITEM000001',
+        'ITEM000001',
+        'ITEM000003-2',
+        'ITEM000005',
+        'ITEM000005',
+        'ITEM000005'
+    ];
+    var inputs1='ITEM000003-2';
+       var a= inputs1.split("-");
+//    for(var i=0;i<inputs.length;i++){
+//        if  (inputs[i].length>10){
+//            inputs[i].split("-",[2])
+//        }
+//
+//    }
+    console.log(inputs[5].length);
+console.log(a[1]);
+*/
+   /* function Item(barcode, name, unit, price) {
+        this.barcode = barcode;
+        this.name = name;
+        this.unit = unit;
+        this.price = price || 0.00;
+    }
+    function loadAllItems() {
+        return [
+            new Item('ITEM000000', '可口可乐', '瓶', 3.00),
+            new Item('ITEM000001', '雪碧', '瓶', 3.00),
+            new Item('ITEM000002', '苹果', '斤', 5.50),
+            new Item('ITEM000003', '荔枝', '斤', 15.00),
+            new Item('ITEM000004', '电池', '个', 2.00),
+            new Item('ITEM000005', '方便面', '袋', 4.50)
+        ];
+    }
+    var b =loadAllItems();
+    console.log(b[1].barcode);*/
+
+
+
+
+
+//    var a = {
+//        type: 'BUY_TWO_GET_ONE_FREE',
+//                barcodes: [
+//            'ITEM000000',
+//            'ITEM000001',
+//            'ITEM000005'
+//        ]
+//    };
+//
+//    console.log(a.barcodes[1]);
+
+
+
+
+
+/*    var aa=[
+        {
+            barcode: 'ITEM000000',
+            name: '可口可乐',
+            unit: '瓶',
+            price: 3.00
+        },
+        {
+            barcode: 'ITEM000003-2',
+            name: '雪碧',
+            unit: '瓶',
+            price: 3.00
+        }
+    ];
+
+    var c = 'ITEM000001';
+    var a  =  'ITEM000003-2';
+    var b = a.substring(11,12);
+    var d = aa[0].barcode.substring(11,12);
+//    console.log(++d);
+    console.log(d>0);*/
+
+
+
+
+//    console.log(c.substring(11,12)==0);
+//    console.log(b>0);
+//    var Object = {
+//        name : "a",
+//        age : 1
+//    };
+//     var box =new Array();
+//    box.push(Object);
+//
+//    box[0].name = "a";
+//    box[0].age = 3;
+//    console.log(box);
+/*inputs = [
+    'ITEM000000',
+    'ITEM000000',
+    'ITEM000000',
+    'ITEM000000',
+    'ITEM000000',
+    'ITEM000001',
+    'ITEM000001',
+    'ITEM000004'
+];
+    console.log(inputs[1]);*/
+
+//    var box;
+//    box = [
+//        {
+//            barcode: 'ITEM000000',
+//            name: '可口可乐',
+//            unit: '瓶',
+//            price: 3.00
+//        },
+//        {
+//            barcode: 'ITEM000001',
+//            name: '雪碧',
+//            unit: '瓶',
+//            price: 3.00
+//        },
+//        {
+//            barcode: 'ITEM000002',
+//            name: '苹果',
+//            unit: '斤',
+//            price: 5.50
+//        },
+//        {
+//            barcode: 'ITEM000003',
+//            name: '荔枝',
+//            unit: '斤',
+//            price: 15.00
+//        }
+//    ];
+//   box[0].count=1;
+//    console.log(box)
+
+
+    /*var a=7;
+    var b=2;
+    var c=(a%b==1)?((a-1)/b):(a/b);
+    console.log(c)
+*/
+
+
+</script>
+
+</body>
+</html>
