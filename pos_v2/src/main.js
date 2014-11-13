@@ -2,11 +2,11 @@
 function printInventory (inputs,formattedDateString ) {
     var allitem = loadAllItems();
     var pro = loadPromotions();
-    var box, bbox;
+    var giftbox, goodsbox;
     var item = new determine();
-    item.getdeter(inputs, allitem);
-    bbox = item.getgoods(allitem);
-    box = item.getgift(pro, bbox);
-    var out=new prints(box, bbox);
-    out.printout();
+    item.getcount(inputs, allitem);
+    goodsbox = item.getgoods(allitem);
+    giftbox = item.getgift(pro, goodsbox);
+    var out=new prints(giftbox, goodsbox);
+
 }

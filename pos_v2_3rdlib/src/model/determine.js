@@ -3,7 +3,7 @@
  * Created by fyqj on 14-10-29.
  */
 function determine() {
-    this.getbox = function() {
+    this.get_box = function() {
         var box = [];
         return box;
     };
@@ -14,21 +14,22 @@ function determine() {
     }
     determine.prototype.getdeter =function(inputs,allitem){
 
-        _.each(allitem,function(allitem){              //确定购买商品的数量
+
+        _.each(allitem,function(allitem){
             var count = 0;
 
-            _.each(inputs,function(inputs){
+            _.each(inputs,function(inputs){//确定购买商品的数量
                 if (inputs.length == 10 && inputs == allitem.barcode) {
                     count = count + 1;
                 }
-                 else if (inputs.length > 10) {
+                 /*else if (inputs.length > 10) {
                     var a;
                     a = inputs.split("-"[2]);
                     if (a[0] == allitem.barcode) {
 
                         allitem.count = a[1];
                     }
-                }
+                }*/
             allitem.count = count;
             });
         });
@@ -63,7 +64,7 @@ function determine() {
         return bbox;
     };
     determine.prototype.getgift = function(pro,bbox){
-        var box =this.getbox();
+        var box =this.get_box();
         var rel =pro[0].barcodes;
         _.each(rel,function(b){
             _.each(bbox,function(bbox) {

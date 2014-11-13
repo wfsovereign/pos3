@@ -1,8 +1,29 @@
 /**
  * Created by fyqj on 14-10-31.
  */
+function assignzero(array){
+    _.each(array,function(arr){
+        arr.count=0;
+    })
+}
+function separation_barcode(array){
+    var tempar;
+    tempar = _.map(array,function(arr){
+        if(arr.length>10){
+            var tempary,tem;
+            tempary =arr.split("-",[2]);
+            tem={
+                barcode:tempary[0],
+                count:tempary[1]
+            };
+            return tem
+        }
+        return arr;
+    });
+    return tempar
+}
 function determine() {
-    this.getbox = function() {
+    this.get_box = function() {
         var box = [];
         return box;
     };
@@ -11,66 +32,47 @@ function determine() {
         return bbox;
     };
 }
-determine.prototype.getdeter =function(inputs,allitem){
-    _.each(allitem,function(allitem){              //确定购买商品的数量
-        var count = 0;
-        _.each(inputs,function(inputs){
-            if (inputs.length == 10 && inputs == allitem.barcode) {
-                count = count + 1;
-            }
-            else if (inputs.length > 10) {
-                var a;
-                a = inputs.split("-"[2]);
-                if (a[0] == allitem.barcode) {
-                    allitem.count = a[1];
+determine.prototype.getcount =function(inputs,allitem){
+    var tempar;
+    assignzero(allitem);
+    tempar=separation_barcode(inputs);
+    _.each(tempar,function(tem){
+        _.each(allitem,function(temp){
+            if(typeof (tem)!="object"){
+                if(temp.barcode ==tem){
+                    temp.count+=1;
+                }
+            }else{
+                if(temp.barcode ==tem.barcode){
+                    temp.count=tem.count;
                 }
             }
-            allitem.count = count;
-        });
-    });
-
-        _.each(inputs,function(inputs){
-          var abc;
-
-         _.each(allitem,function(item){
-            if (inputs.length > 10) {
-               abc = inputs.split("-", [2]);
-               // console.log(abc);
-                if (abc[0] == item.barcode) {
-                   item.count = abc[1];
-              }
-          }
-                })
         })
-
+    });
 };
+
+
 determine.prototype.getgoods =function(allitem){
     var bbox =this.getbbox();
-    _.each(allitem,function(allitem){
-        if (allitem.count>0) {
-            var obj = {};
-            obj.barcode = allitem.barcode;
-            obj.count = allitem.count;
-            obj.name = allitem.name;
-            obj.unit = allitem.unit;
-            obj.price = allitem.price;
-            bbox.push(obj);
+    bbox = _.filter(allitem,function(item){
+        if(item.count>0){
+            return item;
         }
     });
     return bbox;
 };
 determine.prototype.getgift = function(pro,bbox){
-    var box =this.getbox();
+    var box =this.get_box();
     var rel =pro[0].barcodes;
     _.each(rel,function(b){
-        _.each(bbox,function(bbox) {
-            if (b == bbox.barcode && bbox.count != 0) {
+        _.each(bbox,function(elem) {
+            if (b == elem.barcode && elem.count>2) {
                 var obj = {};
-                obj.barcode = bbox.barcode;
-                obj.name = bbox.name;
-                obj.count = ( bbox.count >= 2) ? (1) : (0);
-                obj.price = bbox.price;
-                obj.unit = bbox.unit;
+                obj.barcode = elem.barcode;
+                obj.name = elem.name;
+                obj.count = 1;//( elem.count >= 2) ? (1) : (0)
+                obj.price = elem.price;
+                obj.unit = elem.unit;
                 box.push(obj);
             }
         })

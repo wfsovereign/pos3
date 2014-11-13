@@ -1,16 +1,14 @@
 /**
  * Created by fyqj on 14-10-31.
  */
-function foo(bbox){     //判断该数是否为小数，是则返回true
+/*function judge_arrayelement_decimal(bbox){     //判断该数是否为小数，是则返回true
     return (Math.ceil(bbox.price) > bbox.price)
 }
-function foo1(b){
-    return (Math.ceil(b) > b)
-}
-function math(a){
+
+function postfix_goodsprice(a){   //postfix_pricearr
     var tempera;
         tempera=_.map(a,function(num){
-        if (foo(num)){
+        if (judge_arrayelement_decimal(num)){
             return "0(元)";
         }else{
             return ".00(元)";
@@ -18,10 +16,10 @@ function math(a){
     });
     return tempera
 }
-function math1(a){
+function postfix_subtotal(a){
     var tempera;
     tempera=_.map(a,function(num){
-        if (foo1(num)){
+        if (judge_decimal(num)){
             return "0(元)";
         }else{
             return ".00(元)";
@@ -29,17 +27,37 @@ function math1(a){
     });
     return tempera
 }
-function math2(a){          //根据传进来的数通过foo（）函数判断得到为“.00”/“0”字符串
+function postfix_value(a){          //根据传进来的数通过foo（）函数判断得到为“.00”/“0”字符串
     var str1;
-    if(foo1(a)){
+    if(judge_decimal(a)){
         str1 ="0(元)";
     }else{
         str1 =".00(元)";
     }
     return str1;
+}*/
+function judge_decimal(b){
+    return (Math.ceil(b) > b)
+}
+function postfix(value){
+    if(judge_decimal(value)){
+
+        return (value+"0(元)")
+    }else{
+        return (value+".00(元)")
+    }
 }
 function prints(box,bbox){      //打印函数
-    var goodsstroutput,smallsum, m,smallsumstr,sum,save,goodspricestr,sumstr,giftstroutput,savestr;
+    this.sum=0;
+    this.save=0;
+    this.goodsstr="";
+    this.giftstr="";
+    this.firststep=moment().format('YYYY年MM月DD日'+" "+"HH:mm:ss");//格式化输出
+    this.init(bbox,box);
+    this.goodsoutput(bbox);
+    this.giftoutput(box);
+    this.output(bbox,box);
+    /*var goodsstroutput,smallsum, m,smallsumstr,sum,save,goodspricestr,sumstr,giftstroutput,savestr;
      goodsstroutput="" ;            //购买商品输出字符
      smallsum =[];                  //小计值
      m= 0;                          //box下标
@@ -59,16 +77,16 @@ function prints(box,bbox){      //打印函数
                 return num.count * num.price
             }
         });
-    goodspricestr = math(bbox);
+    goodspricestr = postfix_goodsprice(bbox);
     this.getsum =function() {
         sum = _.reduce(smallsum, function (memo, num) {
             return memo + num;
         }, 0);
         return sum
     };
-    smallsumstr =math1(smallsum);
+    smallsumstr =postfix_subtotal(smallsum);
     this.getsumstr=function() {
-        sumstr = math2(sum);
+        sumstr = postfix_value(sum);
     return sumstr
     };
     this.getgoosstrpoutput = function() {
@@ -95,10 +113,57 @@ function prints(box,bbox){      //打印函数
         return save
     };
     this.getsavestr=function(){
-        savestr = math2(save);
+        savestr = postfix_value(save);
         return savestr
-    }
+    }*/
 }
+prints.prototype.init=function(goodsbox,giftbox){
+    var tempary=0;
+    var tep=0;
+        _.each(goodsbox,function(box){
+           for(var i=0;i<giftbox.length;i++){
+               if(box.barcode==giftbox[i].barcode){
+                   box.subtotal=box.count*box.price - giftbox[i].price;
+                   tempary+=box.subtotal;
+                   tep+=giftbox[i].price;
+               }
+           }});
+    _.each(goodsbox,function(box){
+        for(var i=0;i<giftbox.length;i++){
+            if(typeof (box.subtotal)=='undefined') {
+                box.subtotal=box.count * box.price;
+                tempary+=box.subtotal;
+            }
+        }
+    });
+    this.sum =tempary;
+    this.save =tep;
+};
+prints.prototype.goodsoutput=function(goodsbox){
+    var temp="";
+    temp= _.reduce(goodsbox,function(memo,bbox){
+        var num="";
+        num ="名称：" + bbox.name +"，数量：" + bbox.count + bbox.unit +"，单价：" + postfix(bbox.price) +"，小计：" +postfix(bbox.subtotal)+ "\n";
+        return memo + num
+    },"");
+    this.goodsstr=temp;
+
+};
+prints.prototype.giftoutput =function(box){
+     var temp="";
+    temp=_.reduce(box, function (memo, num) {
+        return memo + "名称：" + num.name +
+            "，数量：" + num.count + num.unit + "\n"
+    }, "");
+    this.giftstr =temp;
+};
+prints.prototype.output = function(goodsbox,giftbox){
+    var firststep="***<没钱赚商店>购物清单***\n" +'打印时间：' + this.firststep+ '\n' +'----------------------\n';
+    var thirdstep= '----------------------\n'+'挥泪赠送商品：\n' ;
+    var laststep = '----------------------\n' +'总计：' + postfix(this.sum) +'\n' +'节省：'  + postfix(this.save) +'\n' +'**********************'
+    console.log(firststep+this.goodsstr+thirdstep+this.giftstr+laststep);
+};
+/*
 prints.prototype.printout =function(){
     goodsstroutput =this.getgoosstrpoutput();
     giftstroutput =this.getgiftstroutput();
@@ -118,4 +183,4 @@ prints.prototype.printout =function(){
             '总计：' + sum + sumstr +'\n' +
             '节省：' + save + savestr +'\n' +
             '**********************')
-};
+};*/
