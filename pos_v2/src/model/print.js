@@ -47,16 +47,16 @@ function postfix(value){
         return (value+".00(元)")
     }
 }
-function prints(gift_object,purchase_object){      //打印函数
+function prints(gift_object,purchase_commodity_object){      //打印函数
     this.sum=0;
     this.save=0;
     this.goodsstr="";
     this.giftstr="";
     this.time_output=moment().format('YYYY年MM月DD日'+" "+"HH:mm:ss");//格式化输出
-    this.init(purchase_object,gift_object);
-    this.goodsoutput(purchase_object);
+    this.init(purchase_commodity_object,gift_object);
+    this.goodsoutput(purchase_commodity_object);
     this.giftoutput(gift_object);
-    this.output(purchase_object,gift_object);
+    this.output();
     /*var goodsstroutput,smallsum, m,smallsumstr,sum,save,goodspricestr,sumstr,giftstroutput,savestr;
      goodsstroutput="" ;            //购买商品输出字符
      smallsum =[];                  //小计值
@@ -117,47 +117,46 @@ function prints(gift_object,purchase_object){      //打印函数
         return savestr
     }*/
 }
-prints.prototype.init=function(purchase_object,gift_object){
-    var tempary=0;
-    var tep=0;
-        _.each(purchase_object,function(box){
+prints.prototype.init=function(commodity_object,gift_object){
+    var sum_temporary=0;
+    var save_temporary=0;
+        _.each(commodity_object,function(commodity){
            for(var i=0;i<gift_object.length;i++){
-               if(box.barcode==gift_object[i].barcode){
-                   box.subtotal=box.count*box.price - gift_object[i].price;
-                   tempary+=box.subtotal;
-                   tep+=gift_object[i].price;
+               if(commodity.barcode==gift_object[i].barcode){
+                   commodity.subtotal=commodity.count*commodity.price - gift_object[i].price;
+                   sum_temporary+=commodity.subtotal;
+                   save_temporary+=gift_object[i].price;
                }
            }});
-    _.each(purchase_object,function(box){
+    _.each(commodity_object,function(commodity){
         for(var i=0;i<gift_object.length;i++){
-            if(typeof (box.subtotal)=='undefined') {
-                box.subtotal=box.count * box.price;
-                tempary+=box.subtotal;
+            if(typeof (commodity.subtotal)=='undefined') {
+                commodity.subtotal=commodity.count * commodity.price;
+                sum_temporary+=commodity.subtotal;
             }
         }
     });
-    this.sum =tempary;
-    this.save =tep;
+    this.sum =sum_temporary;
+    this.save =save_temporary;
 };
-prints.prototype.goodsoutput=function(goodsbox){
-    var temp="";
-    temp= _.reduce(goodsbox,function(memo,bbox){
-        var num="";
-        num ="名称：" + bbox.name +"，数量：" + bbox.count + bbox.unit +"，单价：" + postfix(bbox.price) +"，小计：" +postfix(bbox.subtotal)+ "\n";
-        return memo + num
+prints.prototype.goodsoutput=function(purchase_commodity_object){
+    var goodsstring_temporary="";
+    goodsstring_temporary= _.reduce(purchase_commodity_object,function(memo,commodity){
+        var temporary_variable="";
+        temporary_variable ="名称：" + commodity.name +"，数量：" + commodity.count + commodity.unit +"，单价：" + postfix(commodity.price) +"，小计：" +postfix(commodity.subtotal)+ "\n";
+        return memo + temporary_variable
     },"");
-    this.goodsstr=temp;
-
+    this.goodsstr=goodsstring_temporary;
 };
-prints.prototype.giftoutput =function(box){
-     var temp="";
-    temp=_.reduce(box, function (memo, num) {
-        return memo + "名称：" + num.name +
-            "，数量：" + num.count + num.unit + "\n"
+prints.prototype.giftoutput =function(gift_object){
+     var giftstring_temporary="";
+    giftstring_temporary=_.reduce(gift_object, function (memo, gift) {
+        return memo + "名称：" + gift.name +
+            "，数量：" + gift.count + gift.unit + "\n"
     }, "");
-    this.giftstr =temp;
+    this.giftstr =giftstring_temporary;
 };
-prints.prototype.output = function(goodsbox,giftbox){
+prints.prototype.output = function(){
     var firststep="***<没钱赚商店>购物清单***\n" +'打印时间：' + this.time_output+ '\n' +'----------------------\n';
     var thirdstep= '----------------------\n'+'挥泪赠送商品：\n' ;
     var laststep = '----------------------\n' +'总计：' + postfix(this.sum) +'\n' +'节省：'  + postfix(this.save) +'\n' +'**********************'
