@@ -36,8 +36,8 @@ function postfix_value(a){          //根据传进来的数通过foo（）函数
     }
     return str1;
 }*/
-function judge_decimal(b){
-    return (Math.ceil(b) > b)
+function judge_decimal(integer){
+    return (Math.ceil(integer) > integer)
 }
 function postfix(value){
     if(judge_decimal(value)){
@@ -47,16 +47,16 @@ function postfix(value){
         return (value+".00(元)")
     }
 }
-function prints(box,bbox){      //打印函数
+function prints(gift_object,purchase_object){      //打印函数
     this.sum=0;
     this.save=0;
     this.goodsstr="";
     this.giftstr="";
-    this.firststep=moment().format('YYYY年MM月DD日'+" "+"HH:mm:ss");//格式化输出
-    this.init(bbox,box);
-    this.goodsoutput(bbox);
-    this.giftoutput(box);
-    this.output(bbox,box);
+    this.time_output=moment().format('YYYY年MM月DD日'+" "+"HH:mm:ss");//格式化输出
+    this.init(purchase_object,gift_object);
+    this.goodsoutput(purchase_object);
+    this.giftoutput(gift_object);
+    this.output(purchase_object,gift_object);
     /*var goodsstroutput,smallsum, m,smallsumstr,sum,save,goodspricestr,sumstr,giftstroutput,savestr;
      goodsstroutput="" ;            //购买商品输出字符
      smallsum =[];                  //小计值
@@ -117,19 +117,19 @@ function prints(box,bbox){      //打印函数
         return savestr
     }*/
 }
-prints.prototype.init=function(goodsbox,giftbox){
+prints.prototype.init=function(purchase_object,gift_object){
     var tempary=0;
     var tep=0;
-        _.each(goodsbox,function(box){
-           for(var i=0;i<giftbox.length;i++){
-               if(box.barcode==giftbox[i].barcode){
-                   box.subtotal=box.count*box.price - giftbox[i].price;
+        _.each(purchase_object,function(box){
+           for(var i=0;i<gift_object.length;i++){
+               if(box.barcode==gift_object[i].barcode){
+                   box.subtotal=box.count*box.price - gift_object[i].price;
                    tempary+=box.subtotal;
-                   tep+=giftbox[i].price;
+                   tep+=gift_object[i].price;
                }
            }});
-    _.each(goodsbox,function(box){
-        for(var i=0;i<giftbox.length;i++){
+    _.each(purchase_object,function(box){
+        for(var i=0;i<gift_object.length;i++){
             if(typeof (box.subtotal)=='undefined') {
                 box.subtotal=box.count * box.price;
                 tempary+=box.subtotal;
@@ -158,7 +158,7 @@ prints.prototype.giftoutput =function(box){
     this.giftstr =temp;
 };
 prints.prototype.output = function(goodsbox,giftbox){
-    var firststep="***<没钱赚商店>购物清单***\n" +'打印时间：' + this.firststep+ '\n' +'----------------------\n';
+    var firststep="***<没钱赚商店>购物清单***\n" +'打印时间：' + this.time_output+ '\n' +'----------------------\n';
     var thirdstep= '----------------------\n'+'挥泪赠送商品：\n' ;
     var laststep = '----------------------\n' +'总计：' + postfix(this.sum) +'\n' +'节省：'  + postfix(this.save) +'\n' +'**********************'
     console.log(firststep+this.goodsstr+thirdstep+this.giftstr+laststep);
