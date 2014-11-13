@@ -2,25 +2,25 @@
  * Created by fyqj on 14-10-31.
  */
 function assignzero(array){
-    _.each(array,function(arr){
-        arr.count=0;
+    _.each(array,function(member){
+        member.count=0;
     })
 }
 function separation_barcode(array){
-    var tempar;
-    tempar = _.map(array,function(arr){
-        if(arr.length>10){
-            var tempary,tem;
-            tempary =arr.split("-",[2]);
-            tem={
-                barcode:tempary[0],
-                count:tempary[1]
+    var array_temporary;
+    array_temporary = _.map(array,function(member){
+        if(member.length>10){
+            var reveive_over,receive_object;
+            reveive_over =member.split("-",[2]);
+            receive_object={
+                barcode:reveive_over[0],
+                count:reveive_over[1]
             };
-            return tem
+            return receive_object
         }
-        return arr;
+        return member;
     });
-    return tempar
+    return array_temporary
 }
 function determine() {
     this.get_box = function() {
@@ -33,18 +33,18 @@ function determine() {
     };
 }
 determine.prototype.getcount =function(inputs,allitem){
-    var tempar;
+    var reveive_convert_inputs;
     assignzero(allitem);
-    tempar=separation_barcode(inputs);
-    _.each(tempar,function(tem){
-        _.each(allitem,function(temp){
-            if(typeof (tem)!="object"){
-                if(temp.barcode ==tem){
-                    temp.count+=1;
+    reveive_convert_inputs=separation_barcode(inputs);
+    _.each(reveive_convert_inputs,function(convert_inputs){
+        _.each(allitem,function(item){
+            if(typeof (convert_inputs)!="object"){
+                if(item.barcode ==convert_inputs){
+                    item.count+=1;
                 }
             }else{
-                if(temp.barcode ==tem.barcode){
-                    temp.count=tem.count;
+                if(item.barcode ==convert_inputs.barcode){
+                    item.count=convert_inputs.count;
                 }
             }
         })
@@ -53,29 +53,29 @@ determine.prototype.getcount =function(inputs,allitem){
 
 
 determine.prototype.getgoods =function(allitem){
-    var bbox =this.getbbox();
-    bbox = _.filter(allitem,function(item){
+    var purchase_commodity =this.getbbox();
+    purchase_commodity = _.filter(allitem,function(item){
         if(item.count>0){
             return item;
         }
     });
-    return bbox;
+    return purchase_commodity;
 };
-determine.prototype.getgift = function(pro,bbox){
-    var box =this.get_box();
-    var rel =pro[0].barcodes;
-    _.each(rel,function(b){
-        _.each(bbox,function(elem) {
-            if (b == elem.barcode && elem.count>2) {
+determine.prototype.getgift = function(discount_commodity,purchase_commodity){
+    var gift_commodity =this.get_box();
+    var discount_commodity_barcode =discount_commodity[0].barcodes;
+    _.each(discount_commodity_barcode,function(commodity_barcode){
+        _.each(purchase_commodity,function(purchase_commodity_member) {
+            if (commodity_barcode == purchase_commodity_member.barcode && purchase_commodity_member.count>2) {
                 var obj = {};
-                obj.barcode = elem.barcode;
-                obj.name = elem.name;
+                obj.barcode = purchase_commodity_member.barcode;
+                obj.name = purchase_commodity_member.name;
                 obj.count = 1;//( elem.count >= 2) ? (1) : (0)
-                obj.price = elem.price;
-                obj.unit = elem.unit;
-                box.push(obj);
+                obj.price = purchase_commodity_member.price;
+                obj.unit = purchase_commodity_member.unit;
+                gift_commodity.push(obj);
             }
         })
     });
-    return box;
+    return gift_commodity;
 };
