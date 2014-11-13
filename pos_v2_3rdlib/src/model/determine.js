@@ -3,7 +3,7 @@
  * Created by fyqj on 14-10-29.
  */
 function determine() {
-    this.get_box = function() {
+    this.get_emptybox = function() {
         var box = [];
         return box;
     };
@@ -64,7 +64,7 @@ function determine() {
         return bbox;
     };
     determine.prototype.getgift = function(pro,bbox){
-        var box =this.get_box();
+        var box =this.get_emptybox();
         var rel =pro[0].barcodes;
         _.each(rel,function(b){
             _.each(bbox,function(bbox) {

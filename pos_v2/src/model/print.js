@@ -54,8 +54,8 @@ function prints(gift_object,purchase_commodity_object){      //打印函数
     this.giftstr="";
     this.time_output=moment().format('YYYY年MM月DD日'+" "+"HH:mm:ss");//格式化输出
     this.init(purchase_commodity_object,gift_object);
-    this.goodsoutput(purchase_commodity_object);
-    this.giftoutput(gift_object);
+    this.goods_output(purchase_commodity_object);
+    this.gift_output(gift_object);
     this.output();
     /*var goodsstroutput,smallsum, m,smallsumstr,sum,save,goodspricestr,sumstr,giftstroutput,savestr;
      goodsstroutput="" ;            //购买商品输出字符
@@ -118,43 +118,45 @@ function prints(gift_object,purchase_commodity_object){      //打印函数
     }*/
 }
 prints.prototype.init=function(commodity_object,gift_object){
-    var sum_temporary=0;
-    var save_temporary=0;
+    var sum_result=0;
+    var save_result=0;
+
         _.each(commodity_object,function(commodity){
            for(var i=0;i<gift_object.length;i++){
                if(commodity.barcode==gift_object[i].barcode){
                    commodity.subtotal=commodity.count*commodity.price - gift_object[i].price;
-                   sum_temporary+=commodity.subtotal;
-                   save_temporary+=gift_object[i].price;
+                   sum_result+=commodity.subtotal;
+                   save_result+=gift_object[i].price;
                }
            }});
     _.each(commodity_object,function(commodity){
         for(var i=0;i<gift_object.length;i++){
             if(typeof (commodity.subtotal)=='undefined') {
                 commodity.subtotal=commodity.count * commodity.price;
-                sum_temporary+=commodity.subtotal;
+                sum_result+=commodity.subtotal;
             }
         }
     });
-    this.sum =sum_temporary;
-    this.save =save_temporary;
+    this.sum =sum_result;
+    this.save =save_result;
 };
-prints.prototype.goodsoutput=function(purchase_commodity_object){
-    var goodsstring_temporary="";
-    goodsstring_temporary= _.reduce(purchase_commodity_object,function(memo,commodity){
-        var temporary_variable="";
-        temporary_variable ="名称：" + commodity.name +"，数量：" + commodity.count + commodity.unit +"，单价：" + postfix(commodity.price) +"，小计：" +postfix(commodity.subtotal)+ "\n";
-        return memo + temporary_variable
+
+prints.prototype.goods_output=function(purchase_commodity_object){
+    var goodsstring_result="";
+    goodsstring_result= _.reduce(purchase_commodity_object,function(memo,commodity){
+        var show_variable="";
+        show_variable ="名称：" + commodity.name +"，数量：" + commodity.count + commodity.unit +"，单价：" + postfix(commodity.price) +"，小计：" +postfix(commodity.subtotal)+ "\n";
+        return memo + show_variable
     },"");
-    this.goodsstr=goodsstring_temporary;
+    this.goodsstr=goodsstring_result;
 };
-prints.prototype.giftoutput =function(gift_object){
-     var giftstring_temporary="";
-    giftstring_temporary=_.reduce(gift_object, function (memo, gift) {
+prints.prototype.gift_output =function(gift_object){
+     var giftstring_result="";
+    giftstring_result=_.reduce(gift_object, function (memo, gift) {
         return memo + "名称：" + gift.name +
             "，数量：" + gift.count + gift.unit + "\n"
     }, "");
-    this.giftstr =giftstring_temporary;
+    this.giftstr =giftstring_result;
 };
 prints.prototype.output = function(){
     var firststep="***<没钱赚商店>购物清单***\n" +'打印时间：' + this.time_output+ '\n' +'----------------------\n';

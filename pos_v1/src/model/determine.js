@@ -2,7 +2,7 @@
  * Created by fyqj on 14-11-1.
  */
 function determine() {
-    this.get_box = function() {
+    this.get_emptybox = function() {
         var box = [];
         return box;
     };
@@ -71,7 +71,7 @@ determine.prototype.getgoods =function(allitem){
 };
 
 determine.prototype.getgift = function(pro,bbox){
-    var box =this.get_box();
+    var box =this.get_emptybox();
 
     var rel =pro[0].barcodes;
     _.each(rel,function(b){

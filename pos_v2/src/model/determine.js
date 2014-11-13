@@ -2,35 +2,34 @@
  * Created by fyqj on 14-10-31.
  */
 function assignzero(array){
-    _.each(array,function(member){
-        member.count=0;
+    _.each(array,function(array_member){
+        array_member.count=0;
     })
 }
+
 function separation_barcode(array){
-    var array_temporary;
-    array_temporary = _.map(array,function(member){
-        if(member.length>10){
+    var array_result;
+    array_result = _.map(array,function(array_member){
+        if(array_member.length>10){
             var reveive_over,receive_object;
-            reveive_over =member.split("-",[2]);
+            reveive_over =array_member.split("-",[2]);
             receive_object={
                 barcode:reveive_over[0],
                 count:reveive_over[1]
             };
             return receive_object
         }
-        return member;
+        return array_member;
     });
-    return array_temporary
+    return array_result
 }
+
 function determine() {
-    this.get_box = function() {
-        var box = [];
-        return box;
+    this.get_emptybox = function() {
+        return [];
     };
-    this.getbbox = function() {
-        var bbox =[];
-        return bbox;
-    };
+
+
 }
 determine.prototype.getcount =function(inputs,allitem){
     var reveive_convert_inputs;
@@ -53,7 +52,7 @@ determine.prototype.getcount =function(inputs,allitem){
 
 
 determine.prototype.getgoods =function(allitem){
-    var purchase_commodity =this.getbbox();
+    var purchase_commodity =this.get_emptybox();
     purchase_commodity = _.filter(allitem,function(item){
         if(item.count>0){
             return item;
@@ -61,21 +60,27 @@ determine.prototype.getgoods =function(allitem){
     });
     return purchase_commodity;
 };
+
 determine.prototype.getgift = function(discount_commodity,purchase_commodity){
-    var gift_commodity =this.get_box();
-    var discount_commodity_barcode =discount_commodity[0].barcodes;
-    _.each(discount_commodity_barcode,function(commodity_barcode){
-        _.each(purchase_commodity,function(purchase_commodity_member) {
-            if (commodity_barcode == purchase_commodity_member.barcode && purchase_commodity_member.count>2) {
-                var obj = {};
-                obj.barcode = purchase_commodity_member.barcode;
-                obj.name = purchase_commodity_member.name;
-                obj.count = 1;//( elem.count >= 2) ? (1) : (0)
-                obj.price = purchase_commodity_member.price;
-                obj.unit = purchase_commodity_member.unit;
-                gift_commodity.push(obj);
+    var mid_gift,gift_mid_result,gift_result;
+    gift_mid_result=[];
+    var barcodesarr=discount_commodity[0].barcodes;
+    _.each(barcodesarr,function(bar) {
+        mid_gift = _.find(purchase_commodity, function (purchase) {
+
+            if (bar == purchase.barcode) {
+                return purchase;
             }
-        })
+        });
+        if(typeof (mid_gift)!='undefined'){
+            gift_mid_result.push(mid_gift);
+        }
+    } );
+    gift_result = _.map(gift_mid_result,function(mid_result){
+        if(mid_result.count>2){
+           mid_result.count= Math.floor(mid_result.count/3);
+            return mid_result;
+        }
     });
-    return gift_commodity;
+
 };
