@@ -149,90 +149,6 @@ prints.prototype.init=function(commodity_object,gift_object) {
 };
 
 
-//    rich_commodity_object = _.map(gift_object,function(obj){
-//      var container;
-//        console.log('1')
-//        container = _.find(commodity_object,function(commodity){
-//            console.log('2')
-//            if(obj.barcode == commodity.barcode){
-//                console.log('3')
-//                commodity.subcount = commodity.count - obj.count;
-//                commodity.subtotal = commodity.subcount*commodity.price;
-//                commodity.mark ='true';
-//                save_result +=obj.count*obj.price;
-//                sum_result +=commodity.count*commodity.price;
-//            }else if(commodity.mark != 'true'){
-//                console.log('4')
-//                commodity.subtotal = commodity.count*commodity.price;
-//                sum_result +=commodity.subtotal;
-//            }
-//            return commodity;
-//        });
-//
-//        console.log(container)
-//        return container;
-//    });
-    //console.log(rich_commodity_object)
-
-/* for(var i=0;i<gift_object.length;i++){
-     if(commodity.barcode == gift_object[i].barcode){
-         console.log('2')
-         commodity.subcount = commodity.count -gift_object[i].count;
-         commodity.subtotal = commodity.subcount*commodity.price;
-         break;
-     }else{
-         console.log('3')
-         commodity.subtotal = commodity.count*commodity.price;
-         break;
-     }
-
- }*/
-       /* _.each(gift_object,function(obj){
-            console.log(obj.name)
-            if(commodity.barcode == obj.barcode){
-                commodity.subcount = commodity.count -obj.count;
-                commodity.subtotal = commodity.subcount*commodity.price;
-
-            }else{
-                commodity.subtotal = commodity.count*commodity.price;
-
-            }
-        });*/
-
-
-
-
-    /*rich_commodity_object = _.map(commodity_object,function(commodity){
-       // console.log(commodity)
-        _.find(gift_object,function(gift){
-            if(commodity.barcode == gift.barcode){
-                //console.log("1")
-                commodity.purchasecount = commodity.count-gift.count;
-            }
-        });
-        return commodity;
-    });*/
-
-
-    //console.log(rich_commodity_object)
-
-/*
-        _.each(commodity_object,function(commodity){
-           for(var i=0;i<gift_object.length;i++){
-               if(commodity.barcode==gift_object[i].barcode){
-                   commodity.subtotal=commodity.count*commodity.price - gift_object[i].price;
-                   sum_result+=commodity.subtotal;
-                   save_result+=gift_object[i].price;
-               }
-           }});
-    _.each(commodity_object,function(commodity){
-        for(var i=0;i<gift_object.length;i++){
-            if(typeof (commodity.subtotal)=='undefined') {
-                commodity.subtotal=commodity.count * commodity.price;
-                sum_result+=commodity.subtotal;
-            }
-        }
-    });*/
 
 prints.prototype.goods_output=function(purchase_commodity_object){
     var goodsstring_result="";
@@ -252,29 +168,15 @@ prints.prototype.gift_output =function(gift_object){
     this.giftstr =giftstring_result;
 };
 prints.prototype.output = function(){
-    var firststep="***<没钱赚商店>购物清单***\n" +'打印时间：' + this.time_output+ '\n' +'----------------------\n';
-    var thirdstep= '----------------------\n'+'挥泪赠送商品：\n' ;
-    var laststep = '----------------------\n' +'总计：' + postfix(this.sum) +'\n' +'节省：'  + postfix(this.save) +'\n' +'**********************'
-    console.log(firststep+this.goodsstr+thirdstep+this.giftstr+laststep);
+    if(this.save != 0){
+        var firststep="***<没钱赚商店>购物清单***\n" +'打印时间：' + this.time_output+ '\n' +'----------------------\n';
+        var thirdstep= '----------------------\n'+'挥泪赠送商品：\n' ;
+        var laststep = '----------------------\n' +'总计：' + postfix(this.sum) +'\n' +'节省：'  + postfix(this.save) +'\n' +'**********************';
+        console.log(firststep+this.goodsstr+thirdstep+this.giftstr+laststep);
+    }else{
+        var firststep="***<没钱赚商店>购物清单***\n" +'打印时间：' + this.time_output+ '\n' +'----------------------\n';
+        var laststep = '----------------------\n' +'总计：' + postfix(this.sum) +'\n'  +'**********************';
+        console.log(firststep+this.goodsstr+this.giftstr+laststep);
+    }
+
 };
-/*
-prints.prototype.printout =function(){
-    goodsstroutput =this.getgoosstrpoutput();
-    giftstroutput =this.getgiftstroutput();
-    sum =this.getsum();
-    sumstr =this.getsumstr();
-    save =this.getsave();
-    savestr =this.getsavestr();
-    var now= moment().format('YYYY年MM月DD日'+" "+"HH:mm:ss");//格式化输出
-    console.log(
-            "***<没钱赚商店>购物清单***\n" +
-            '打印时间：' + now+ '\n' +
-            '----------------------\n'
-            + goodsstroutput
-            +   '----------------------\n'+'挥泪赠送商品：\n' +
-            giftstroutput+
-            '----------------------\n' +
-            '总计：' + sum + sumstr +'\n' +
-            '节省：' + save + savestr +'\n' +
-            '**********************')
-};*/
