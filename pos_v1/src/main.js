@@ -5,7 +5,7 @@ function  printInventory(inputs) {
     var box, bbox;
     var item = new determine();
     item.getdeter(inputs, allitem);
-    bbox = item.getgoods(allitem);
+    bbox = item.get_goods(allitem);
     box = item.getgift(pro, bbox);
     prints(box, bbox);
 }

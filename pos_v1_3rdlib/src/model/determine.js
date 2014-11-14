@@ -48,7 +48,7 @@ determine.prototype.getdeter =function(inputs,allitem){
     })
 
 };
-determine.prototype.getgoods =function(allitem){
+determine.prototype.get_goods =function(allitem){
     var bbox =this.getbbox();
 
 

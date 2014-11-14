@@ -39,6 +39,7 @@ function postfix_value(a){          //根据传进来的数通过foo（）函数
 function judge_decimal(integer){
     return (Math.ceil(integer) > integer)
 }
+
 function postfix(value){
     if(judge_decimal(value)){
 
@@ -47,6 +48,7 @@ function postfix(value){
         return (value+".00(元)")
     }
 }
+
 function prints(gift_object,purchase_commodity_object){      //打印函数
     this.sum=0;
     this.save=0;
@@ -56,7 +58,7 @@ function prints(gift_object,purchase_commodity_object){      //打印函数
     this.init(purchase_commodity_object,gift_object);
     this.goods_output(purchase_commodity_object);
     this.gift_output(gift_object);
-    this.output();
+    //this.output();
     /*var goodsstroutput,smallsum, m,smallsumstr,sum,save,goodspricestr,sumstr,giftstroutput,savestr;
      goodsstroutput="" ;            //购买商品输出字符
      smallsum =[];                  //小计值
@@ -117,10 +119,29 @@ function prints(gift_object,purchase_commodity_object){      //打印函数
         return savestr
     }*/
 }
+
 prints.prototype.init=function(commodity_object,gift_object){
     var sum_result=0;
     var save_result=0;
+    var rich_commodity_object=[];
 
+    /*rich_commodity_object = _.map(commodity_object,function(commodity){
+       // console.log(commodity)
+        _.find(gift_object,function(gift){
+            if(commodity.barcode == gift.barcode){
+                //console.log("1")
+                commodity.purchasecount = commodity.count-gift.count;
+            }
+        });
+        return commodity;
+    });*/
+
+
+    //console.log(rich_commodity_object)
+    _.each(rich_commodity_object,function(rich_commodity){
+
+    })
+/*
         _.each(commodity_object,function(commodity){
            for(var i=0;i<gift_object.length;i++){
                if(commodity.barcode==gift_object[i].barcode){
@@ -136,7 +157,7 @@ prints.prototype.init=function(commodity_object,gift_object){
                 sum_result+=commodity.subtotal;
             }
         }
-    });
+    });*/
     this.sum =sum_result;
     this.save =save_result;
 };
