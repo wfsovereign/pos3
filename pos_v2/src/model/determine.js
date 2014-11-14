@@ -99,6 +99,8 @@ determine.prototype.get_gift = function(discount_commodity,rich_purchase_commodi
                 gift_result.push(mirror);
             }
     });
+    return gift_result;
+};
 /*
     var rich_purchase_commodity_mirror;
     rich_purchase_commodity_mirror = _.map(purchase_commodity_mirror,function(mirror){
@@ -144,5 +146,3 @@ determine.prototype.get_gift = function(discount_commodity,rich_purchase_commodi
 //            return mid_result;
 //        }
 //    });
-    return gift_result;
-};

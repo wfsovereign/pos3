@@ -58,7 +58,7 @@ function prints(gift_object,purchase_commodity_object){      //打印函数
     this.init(purchase_commodity_object,gift_object);
     this.goods_output(purchase_commodity_object);
     this.gift_output(gift_object);
-    //this.output();
+    this.output();
     /*var goodsstroutput,smallsum, m,smallsumstr,sum,save,goodspricestr,sumstr,giftstroutput,savestr;
      goodsstroutput="" ;            //购买商品输出字符
      smallsum =[];                  //小计值
@@ -120,10 +120,87 @@ function prints(gift_object,purchase_commodity_object){      //打印函数
     }*/
 }
 
-prints.prototype.init=function(commodity_object,gift_object){
-    var sum_result=0;
-    var save_result=0;
-    var rich_commodity_object=[];
+prints.prototype.init=function(commodity_object,gift_object) {
+    var sum_result = 0;
+    var save_result = 0;
+    var rich_commodity_object = [];
+    rich_commodity_object = _.map(commodity_object, function (commodity) {
+        for (var i = 0; i < gift_object.length; i++) {
+            if (gift_object[i].barcode == commodity.barcode) {
+                commodity.subcount = commodity.count - gift_object[i].count;
+            }
+        }
+        return commodity;
+    });
+    _.each(rich_commodity_object,function(rich_commodity){
+        if(rich_commodity.subcount != undefined){
+            rich_commodity.subtotal = rich_commodity.price*rich_commodity.subcount;
+            sum_result+=rich_commodity.subcount*rich_commodity.price;
+        }else{
+            rich_commodity.subtotal = rich_commodity.count*rich_commodity.price;
+            sum_result+=rich_commodity.count*rich_commodity.price;
+        }
+    });
+    _.each(gift_object,function(obj){
+        save_result+=obj.count*obj.price;
+    });
+    this.sum = sum_result;
+    this.save = save_result;
+};
+
+
+//    rich_commodity_object = _.map(gift_object,function(obj){
+//      var container;
+//        console.log('1')
+//        container = _.find(commodity_object,function(commodity){
+//            console.log('2')
+//            if(obj.barcode == commodity.barcode){
+//                console.log('3')
+//                commodity.subcount = commodity.count - obj.count;
+//                commodity.subtotal = commodity.subcount*commodity.price;
+//                commodity.mark ='true';
+//                save_result +=obj.count*obj.price;
+//                sum_result +=commodity.count*commodity.price;
+//            }else if(commodity.mark != 'true'){
+//                console.log('4')
+//                commodity.subtotal = commodity.count*commodity.price;
+//                sum_result +=commodity.subtotal;
+//            }
+//            return commodity;
+//        });
+//
+//        console.log(container)
+//        return container;
+//    });
+    //console.log(rich_commodity_object)
+
+/* for(var i=0;i<gift_object.length;i++){
+     if(commodity.barcode == gift_object[i].barcode){
+         console.log('2')
+         commodity.subcount = commodity.count -gift_object[i].count;
+         commodity.subtotal = commodity.subcount*commodity.price;
+         break;
+     }else{
+         console.log('3')
+         commodity.subtotal = commodity.count*commodity.price;
+         break;
+     }
+
+ }*/
+       /* _.each(gift_object,function(obj){
+            console.log(obj.name)
+            if(commodity.barcode == obj.barcode){
+                commodity.subcount = commodity.count -obj.count;
+                commodity.subtotal = commodity.subcount*commodity.price;
+
+            }else{
+                commodity.subtotal = commodity.count*commodity.price;
+
+            }
+        });*/
+
+
+
 
     /*rich_commodity_object = _.map(commodity_object,function(commodity){
        // console.log(commodity)
@@ -138,9 +215,7 @@ prints.prototype.init=function(commodity_object,gift_object){
 
 
     //console.log(rich_commodity_object)
-    _.each(rich_commodity_object,function(rich_commodity){
 
-    })
 /*
         _.each(commodity_object,function(commodity){
            for(var i=0;i<gift_object.length;i++){
@@ -158,9 +233,6 @@ prints.prototype.init=function(commodity_object,gift_object){
             }
         }
     });*/
-    this.sum =sum_result;
-    this.save =save_result;
-};
 
 prints.prototype.goods_output=function(purchase_commodity_object){
     var goodsstring_result="";
