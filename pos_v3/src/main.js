@@ -1,6 +1,6 @@
 //TODO: Please write code in this file.
 
-var items = [
+var paid_items = [
     {
         name:'可口可乐350ml',
         count:20,
@@ -31,8 +31,9 @@ var items = [
     }
 ];
 
+
 function build_paid_item_string(result) {
-    _(items).each(function (item) {
+    _(paid_items).each(function (item) {
         result += '名称：' + item.name +
         '，数量：' + item.count + item.unit +
         '，单价：' + item.price.toFixed(2) +
@@ -40,16 +41,25 @@ function build_paid_item_string(result) {
     });
     return result;
 }
+
+function build_gift_item_string(result) {
+    result +='名称：可口可乐品牌打折，金额：14.00元\n' +
+    '名称：满100减3，金额：3.00元\n';
+    return result;
+}
+
 function printInventory (inputs) {
+    var receipt_items = build_receipt_items_from_inputs(inputs);
 
     var result ="";
     result+='***<没钱赚商店>购物清单***\n';
     result = build_paid_item_string(result);
     result+='----------------------\n' +
-    '优惠信息：\n' +
-    '名称：可口可乐品牌打折，金额：14.00元\n' +
-    '名称：满100减3，金额：3.00元\n' +
-    '----------------------\n' +
+    '优惠信息：\n';
+    result = build_gift_item_string(result);
+
+
+    result+='----------------------\n' +
     '总计：438.00(元)\n' +
     '节省：17.00(元)\n' +
     '**********************';
