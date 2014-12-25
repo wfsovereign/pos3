@@ -31,7 +31,7 @@ var result = _(inputs).map(function(obj) {
     //    count:obj[attribute]
     //};
 
-    console.log(_.values(obj));
+   // console.log(_.values(obj));
     var barcode =  _.keys(obj)[0];
     var count = _.values(obj)[0];
     return{
@@ -41,5 +41,3 @@ var result = _(inputs).map(function(obj) {
    // console.log(_.values(obj))
 });
 
-
-console.log(result);
