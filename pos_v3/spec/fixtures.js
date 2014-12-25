@@ -16,11 +16,56 @@ function loadAllItems() {
 function loadPromotions() {
     return [
         {
-            type: 'BUY_TWO_GET_ONE_FREE',
+            type: 'brand discount',
+            name: cole,
+            dicount_rate: '10%',
             barcodes: [
                 'ITEM000000',
-                'ITEM000001',
-                'ITEM000005'
+                'ITEM000010'
+            ]
+        },
+        {
+            type: 'single produce discount',
+            discount_rate: '5%',
+            barcode: [
+                'ITEM000000',
+                'ITEM000001'
+            ]
+        },
+        {
+            type: 'full reduction',
+            single_produce: {
+                barcode: [
+                    'ITEM000002',
+                    'ITEM000003'
+                ]
+            },
+            brand_produce: {
+                barcode: [
+                    'ITEM000005',
+                    'ITEM000008'
+                ]
+            },
+            all_produce: {},
+            produce_object: [
+                {
+                    name: single_produce,
+                    barcode: [
+                        'ITEM000000',
+                        'ITEM000001'
+                    ]
+                },
+                {
+                    name: brand_produce,
+                    barcode:[
+                        'ITEM000005',
+                        'ITEM000008'
+                    ]
+                },
+                {
+                    name: all_produce,
+                    barocde:[]
+                }
             ]
         }
     ]

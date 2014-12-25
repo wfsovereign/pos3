@@ -28,3 +28,4 @@ function build_receipt_items_from_inputs(inputs) {
      }).value();
     return receipt_items;
 }
+
