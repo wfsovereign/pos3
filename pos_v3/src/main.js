@@ -32,8 +32,9 @@ var paid_items = [
 ];
 
 
-function build_paid_item_string(result) {
-    _(paid_items).each(function (item) {
+function build_paid_item_string(receipt_items) {
+    var result = "";
+    _(receipt_items).each(function (item) {
         result += '名称：' + item.name +
         '，数量：' + item.count + item.unit +
         '，单价：' + item.price.toFixed(2) +
@@ -50,10 +51,10 @@ function build_gift_item_string(result) {
 
 function printInventory (inputs) {
     var receipt_items = build_receipt_items_from_inputs(inputs);
-
+    //console.log(receipt_items);
     var result ="";
     result+='***<没钱赚商店>购物清单***\n';
-    result = build_paid_item_string(result);
+    result+= build_paid_item_string(receipt_items);
     result+='----------------------\n' +
     '优惠信息：\n';
     result = build_gift_item_string(result);
