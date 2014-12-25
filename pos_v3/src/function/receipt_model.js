@@ -8,7 +8,8 @@ function find_item_by_barcode(barcode) {
 }
 
 function build_receipt_items_from_inputs(inputs) {
-     var receipt_items = _.chain(inputs).map(function(obj) {
+     var receipt_items;
+         receipt_items = _.chain(inputs).map(function(obj) {
          return{
              barcode:_.keys(obj)[0],
              count: _.values(obj)[0]
@@ -21,9 +22,9 @@ function build_receipt_items_from_inputs(inputs) {
              count:element.count,
              unit:item.unit,
              price:item.price,
+             brand:item.brand,
              subtotal:item.price*element.count
          }
      }).value();
-
     return receipt_items;
 }
