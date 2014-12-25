@@ -29,3 +29,6 @@ function build_receipt_items_from_inputs(inputs) {
     return receipt_items;
 }
 
+function build_preference_info_obj_from_receipt_items(items) {
+
+}
