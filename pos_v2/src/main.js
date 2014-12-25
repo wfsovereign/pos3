@@ -9,4 +9,8 @@ function printInventory (inputs,formattedDateString ) {
     rich_purchase_commodity = item.assign_preferential_information(discount_commodity,purchase_commodity);
     gift_commodity = item.get_gift(discount_commodity, rich_purchase_commodity);
     var out=new prints(gift_commodity, rich_purchase_commodity);
+
+
+    var a =_.sortBy([1, 2, 3, 4, 5, 6], function(num){ return Math.sin(num); });
+    console.log(a);
 }

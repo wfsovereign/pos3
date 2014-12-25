@@ -48,7 +48,6 @@ determine.prototype.get_count =function(inputs,allitem){
             }
         })
     });
-    //console.log(allitem)
 };
 
 
@@ -101,48 +100,3 @@ determine.prototype.get_gift = function(discount_commodity,rich_purchase_commodi
     });
     return gift_result;
 };
-/*
-    var rich_purchase_commodity_mirror;
-    rich_purchase_commodity_mirror = _.map(purchase_commodity_mirror,function(mirror){
-        _.each(barcodesarr,function(bar){
-            if(bar ==mirror.barcode){
-                mirror.mark ='true';
-            }
-        });
-        return mirror;
-    });*/
-    //console.log('==========',purchase_commodity_mirror);
-
-    //console.log('++++++',purchase_commodity)
-        /*for(var i=0;i<rich_purchase_commodity_mirror.length;i++){
-        if(rich_purchase_commodity_mirror[i].mark == 'true'){
-            gift_mid_result.push(rich_purchase_commodity_mirror[i])
-        }
-    }*/
-
-   /* _.each(rich_purchase_commodity_mirror,function(mirror){
-        console.log(mirror);
-        if(mirror.mark == 'true'){
-            gift_mid_result.push(mirror);
-        }
-    });*/
-//    console.log(gift_mid_result)
-
-
-   /* _.each(barcodesarr,function(bar) {
-        mid_gift = _.find(purchase_commodity_mirror, function (mirror) {
-            if (bar == mirror.barcode) {
-                return mirror;
-            }
-        });
-
-        if(typeof (mid_gift)!='undefined'){
-            gift_mid_result.push(mid_gift);
-        }
-    } );*/
-//    gift_result = _.map(gift_mid_result,function(mid_result){
-//        if(mid_result.count>2){
-//           mid_result.count= Math.floor(mid_result.count/3);
-//            return mid_result;
-//        }
-//    });

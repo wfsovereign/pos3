@@ -59,72 +59,13 @@ function prints(gift_object,purchase_commodity_object){      //打印函数
     this.goods_output(purchase_commodity_object);
     this.gift_output(gift_object);
     this.output();
-    /*var goodsstroutput,smallsum, m,smallsumstr,sum,save,goodspricestr,sumstr,giftstroutput,savestr;
-     goodsstroutput="" ;            //购买商品输出字符
-     smallsum =[];                  //小计值
-     m= 0;                          //box下标
-     smallsumstr=[];
-     sum =0;                          //总计值
-     save = 0;                        //节省值
-     goodspricestr = [];            //已购买商品单价字符
-     sumstr = "";                      //总计字符
-     giftstroutput = "";                      //赠送商品字符
-     savestr = "";                     //节省钱的字符
-    smallsum = _.map(bbox, function (num) {
-            if (num.barcode == box[m].barcode) {
-                var sume = num.count * num.price - box[m].price;
-                m++;
-                return sume
-            } else {
-                return num.count * num.price
-            }
-        });
-    goodspricestr = postfix_goodsprice(bbox);
-    this.getsum =function() {
-        sum = _.reduce(smallsum, function (memo, num) {
-            return memo + num;
-        }, 0);
-        return sum
-    };
-    smallsumstr =postfix_subtotal(smallsum);
-    this.getsumstr=function() {
-        sumstr = postfix_value(sum);
-    return sumstr
-    };
-    this.getgoosstrpoutput = function() {
-        for (var i = 0; i < bbox.length; i++) {
-            goodsstroutput = goodsstroutput + "名称：" + bbox[i].name +
-                "，数量：" + bbox[i].count + bbox[i].unit +
-                "，单价：" + bbox[i].price + goodspricestr[i] +
-                "，小计：" +
-                smallsum[i] + smallsumstr[i] + "\n"
-        }
-        return goodsstroutput
-    };
-    this.getgiftstroutput = function() {
-        giftstroutput = _.reduce(box, function (memo, num) {
-            return memo + "名称：" + num.name +
-                "，数量：" + num.count + num.unit + "\n"
-        }, "");
-        return giftstroutput
-    };
-    this.getsave =function(){
-    save = _.reduce(box,function(memo,nm){
-        return memo + nm.price
-    },0);
-        return save
-    };
-    this.getsavestr=function(){
-        savestr = postfix_value(save);
-        return savestr
-    }*/
 }
 
 prints.prototype.init=function(commodity_object,gift_object) {
     var sum_result = 0;
     var save_result = 0;
-    var rich_commodity_object = [];
-    rich_commodity_object = _.map(commodity_object, function (commodity) {
+    var rich_commodity_object_subcount = [];
+    rich_commodity_object_subcount = _.map(commodity_object, function (commodity) {
         for (var i = 0; i < gift_object.length; i++) {
             if (gift_object[i].barcode == commodity.barcode) {
                 commodity.subcount = commodity.count - gift_object[i].count;
@@ -132,7 +73,7 @@ prints.prototype.init=function(commodity_object,gift_object) {
         }
         return commodity;
     });
-    _.each(rich_commodity_object,function(rich_commodity){
+    _.each(rich_commodity_object_subcount,function(rich_commodity){
         if(rich_commodity.subcount != undefined){
             rich_commodity.subtotal = rich_commodity.price*rich_commodity.subcount;
             sum_result+=rich_commodity.subcount*rich_commodity.price;
@@ -149,7 +90,6 @@ prints.prototype.init=function(commodity_object,gift_object) {
 };
 
 
-
 prints.prototype.goods_output=function(purchase_commodity_object){
     var goodsstring_result="";
     goodsstring_result= _.reduce(purchase_commodity_object,function(memo,commodity){
@@ -159,6 +99,7 @@ prints.prototype.goods_output=function(purchase_commodity_object){
     },"");
     this.goodsstr=goodsstring_result;
 };
+
 prints.prototype.gift_output =function(gift_object){
      var giftstring_result="";
     giftstring_result=_.reduce(gift_object, function (memo, gift) {
@@ -167,6 +108,7 @@ prints.prototype.gift_output =function(gift_object){
     }, "");
     this.giftstr =giftstring_result;
 };
+
 prints.prototype.output = function(){
     if(this.save != 0){
         var firststep="***<没钱赚商店>购物清单***\n" +'打印时间：' + this.time_output+ '\n' +'----------------------\n';
