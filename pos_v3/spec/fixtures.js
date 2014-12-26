@@ -17,15 +17,16 @@ function loadPromotions() {
     return [
         {
             type: 'brand discount',
-            name: cole,
-            dicount_rate: '10%',
-            barcodes: [
+            name: "可口可乐品牌打折",
+            discount_rate: '10%',
+            barcode: [
                 'ITEM000000',
                 'ITEM000010'
             ]
         },
         {
             type: 'single produce discount',
+            name:"",
             discount_rate: '5%',
             barcode: [
                 'ITEM000000',
@@ -34,7 +35,8 @@ function loadPromotions() {
         },
         {
             type: 'full reduction',
-            name: single_produce,
+            name: 'single_produce',
+            discount_rate:"full one hundred reduce five",
             barcode: [
                 'ITEM000000',
                 'ITEM000001'
@@ -42,7 +44,8 @@ function loadPromotions() {
 
         }, {
             type: 'full reduction',
-            name: brand_produce,
+            name: 'brand_produce',
+            discount_rate:"full one hundred reduce three",
             barcode: [
                 'ITEM000005',
                 'ITEM000008'
@@ -50,7 +53,8 @@ function loadPromotions() {
 
         }, {
             type: 'full reduction',
-            name: all_produce,
+            name: 'all_produce',
+            discount_rate:"full one hundred reduce two",
             barcode: []
 
         }
