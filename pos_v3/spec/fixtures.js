@@ -26,7 +26,7 @@ function loadPromotions() {
         },
         {
             type: 'single produce discount',
-            name:"",
+            name:"单品打折",
             discount_rate: '5%',
             barcode: [
                 'ITEM000000',
@@ -35,26 +35,28 @@ function loadPromotions() {
         },
         {
             type: 'full reduction',
-            name: 'single_produce',
+            name: '满100减5',
             discount_rate:"full one hundred reduce five",
             barcode: [
                 'ITEM000000',
                 'ITEM000001'
             ]
 
-        }, {
+        },
+        {
             type: 'full reduction',
-            name: 'brand_produce',
-            discount_rate:"full one hundred reduce three",
+            name: '满100减2',
+            discount_rate:"full one hundred reduce two",
             barcode: [
                 'ITEM000005',
                 'ITEM000008'
             ]
 
-        }, {
+        },
+        {
             type: 'full reduction',
-            name: 'all_produce',
-            discount_rate:"full one hundred reduce two",
+            name: '满100减3',
+            discount_rate:"full one hundred reduce three",
             barcode: []
 
         }
