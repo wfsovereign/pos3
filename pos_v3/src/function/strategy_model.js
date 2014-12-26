@@ -15,14 +15,12 @@ function build_preferential_strategy_from_promotion(){
             regulartion_of_strategy_one.push(promotion);
         }
     });
-
     _(loadPromotions()).find(function(promotion) {
         if(promotion.name == '满100减3') {
             promotion.barcode = ['ITEM000005'];
             regulartion_of_strategy_one.push(promotion);
         }
     });
-
     return regulartion_of_strategy_one;
 }
 
@@ -58,13 +56,22 @@ function add_promotion_from_promotion(item) {
             add_type_to_item(item,promotion);
         }
     })
+}
 
+function build_preferential_items_from_add_promotion_items(items) {
+    return _(items).filter(function(item) {
+        
+        return item.type !=undefined;
+    })
 }
 
 function build_preference_info_obj_from_receipt_items(items) {
     _(items).each(function(item){
         add_promotion_from_promotion(item);
     });
+    var preference_info_obj=[];
+
+
     return items;
 
 }

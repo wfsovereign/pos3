@@ -2,12 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="85b9848c-9126-4f01-92cd-137cd31ccc89" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pos_v3/SpecRunner.html" afterPath="$PROJECT_DIR$/pos_v3/SpecRunner.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pos_v3/spec/fixtures.js" afterPath="$PROJECT_DIR$/pos_v3/spec/fixtures.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pos_v3/spec/main-spec.js" afterPath="$PROJECT_DIR$/pos_v3/spec/main-spec.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pos_v3/src/main.js" afterPath="$PROJECT_DIR$/pos_v3/src/main.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pos_v3/src/function/strategy_model.js" afterPath="$PROJECT_DIR$/pos_v3/src/function/strategy_model.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ts.html" afterPath="$PROJECT_DIR$/ts.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="pos.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -42,33 +39,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ts.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ts.html">
+      <file leaf-file-name="main-spec.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pos_v3/spec/main-spec.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.142857" vertical-offset="6754" max-vertical-offset="7676">
-              <caret line="366" column="36" selection-start-line="366" selection-start-column="36" selection-end-line="366" selection-end-column="36" />
-              <folding>
-                <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="main.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/pos_v3/src/main.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.14194237" vertical-offset="0" max-vertical-offset="937">
-              <caret line="7" column="4" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="4" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="779">
+              <caret line="15" column="10" selection-start-line="15" selection-start-column="10" selection-end-line="15" selection-end-column="10" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="strategy_model.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pos_v3/src/main.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="380">
+              <caret line="9" column="34" selection-start-line="9" selection-start-column="34" selection-end-line="9" selection-end-column="34" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="strategy_model.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pos_v3/src/function/strategy_model.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1387">
-              <caret line="19" column="36" selection-start-line="19" selection-start-column="36" selection-end-line="19" selection-end-column="36" />
+            <state vertical-scroll-proportion="0.6" vertical-offset="570" max-vertical-offset="1520">
+              <caret line="62" column="8" selection-start-line="62" selection-start-column="8" selection-end-line="62" selection-end-column="8" />
               <folding>
                 <element signature="n#!!doc;n#build_preferential_strategy_from_promotion#0" expanded="false" />
               </folding>
@@ -79,8 +74,8 @@
       <file leaf-file-name="fixtures.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pos_v3/spec/fixtures.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="342" max-vertical-offset="1330">
-              <caret line="57" column="23" selection-start-line="57" selection-start-column="19" selection-end-line="57" selection-end-column="25" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1330">
+              <caret line="1" column="12" selection-start-line="1" selection-start-column="12" selection-end-line="1" selection-end-column="12" />
               <folding />
             </state>
           </provider>
@@ -90,7 +85,7 @@
         <entry file="file://$PROJECT_DIR$/pos_v3/src/function/receipt_view.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="798">
-              <caret line="16" column="47" selection-start-line="16" selection-start-column="47" selection-end-line="16" selection-end-column="47" />
+              <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
               <folding>
                 <element signature="n#!!doc;n#build_paid_item_string#0" expanded="false" />
               </folding>
@@ -152,15 +147,15 @@
         <option value="$PROJECT_DIR$/pos_v3/README.md" />
         <option value="$PROJECT_DIR$/pos_v2/src/model/item.js" />
         <option value="$PROJECT_DIR$/pos_v3/src/model/item.js" />
-        <option value="$PROJECT_DIR$/pos_v3/spec/main-spec.js" />
         <option value="$PROJECT_DIR$/pos_v3/src/function/test.js" />
         <option value="$PROJECT_DIR$/pos_v3/src/function/receipt_view.js" />
         <option value="$PROJECT_DIR$/pos_v3/src/function/receipt_model.js" />
         <option value="$PROJECT_DIR$/ts.html" />
         <option value="$PROJECT_DIR$/pos_v3/SpecRunner.html" />
         <option value="$PROJECT_DIR$/pos_v3/spec/fixtures.js" />
-        <option value="$PROJECT_DIR$/pos_v3/src/function/strategy_model.js" />
+        <option value="$PROJECT_DIR$/pos_v3/spec/main-spec.js" />
         <option value="$PROJECT_DIR$/pos_v3/src/main.js" />
+        <option value="$PROJECT_DIR$/pos_v3/src/function/strategy_model.js" />
       </list>
     </option>
   </component>
@@ -168,7 +163,7 @@
     <detection-done>true</detection-done>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="760" />
+    <option name="x" value="709" />
     <option name="y" value="24" />
     <option name="width" value="1193" />
     <option name="height" value="1056" />
@@ -468,7 +463,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="760" y="24" width="1193" height="1056" extended-state="4" />
+    <frame x="709" y="24" width="1193" height="1056" extended-state="4" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -477,7 +472,7 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16764459" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.16764459" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -792,13 +787,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="26961">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pos_v3/spec/main-spec.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="836">
-          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -855,16 +844,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ts.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.142857" vertical-offset="6754" max-vertical-offset="7676">
-          <caret line="366" column="36" selection-start-line="366" selection-start-column="36" selection-end-line="366" selection-end-column="36" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pos_v3/src/function/receipt_model.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="684">
@@ -883,20 +862,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pos_v3/src/function/strategy_model.js">
+    <entry file="file://$PROJECT_DIR$/ts.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1387">
-          <caret line="19" column="36" selection-start-line="19" selection-start-column="36" selection-end-line="19" selection-end-column="36" />
-          <folding>
-            <element signature="n#!!doc;n#build_preferential_strategy_from_promotion#0" expanded="false" />
-          </folding>
+        <state vertical-scroll-proportion="-7.142857" vertical-offset="6754" max-vertical-offset="7676">
+          <caret line="366" column="36" selection-start-line="366" selection-start-column="36" selection-end-line="366" selection-end-column="36" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pos_v3/spec/fixtures.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="342" max-vertical-offset="1330">
-          <caret line="57" column="23" selection-start-line="57" selection-start-column="19" selection-end-line="57" selection-end-column="25" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1330">
+          <caret line="1" column="12" selection-start-line="1" selection-start-column="12" selection-end-line="1" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pos_v3/spec/main-spec.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="779">
+          <caret line="15" column="10" selection-start-line="15" selection-start-column="10" selection-end-line="15" selection-end-column="10" />
           <folding />
         </state>
       </provider>
@@ -904,7 +889,7 @@
     <entry file="file://$PROJECT_DIR$/pos_v3/src/function/receipt_view.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="798">
-          <caret line="16" column="47" selection-start-line="16" selection-start-column="47" selection-end-line="16" selection-end-column="47" />
+          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
           <folding>
             <element signature="n#!!doc;n#build_paid_item_string#0" expanded="false" />
           </folding>
@@ -913,9 +898,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pos_v3/src/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.14194237" vertical-offset="0" max-vertical-offset="937">
-          <caret line="7" column="4" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="4" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="380">
+          <caret line="9" column="34" selection-start-line="9" selection-start-column="34" selection-end-line="9" selection-end-column="34" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pos_v3/src/function/strategy_model.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6" vertical-offset="570" max-vertical-offset="1520">
+          <caret line="62" column="8" selection-start-line="62" selection-start-column="8" selection-end-line="62" selection-end-column="8" />
+          <folding>
+            <element signature="n#!!doc;n#build_preferential_strategy_from_promotion#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

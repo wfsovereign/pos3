@@ -13,11 +13,8 @@ describe('pos', function () {
     });
 
     it('should print correct text', function () {
-
-        spyOn(console, 'log');
-
+        //spyOn(console, 'log');
         printInventory(inputs);
-
         var expectText =
             '***<没钱赚商店>购物清单***\n' +
             '名称：可口可乐350ml，数量：20瓶，单价：3.00(元)，小计：60.00(元)\n' +
@@ -32,7 +29,7 @@ describe('pos', function () {
             '总计：438.00(元)\n' +
             '节省：17.00(元)\n' +
             '**********************';
-
           expect(console.log).toHaveBeenCalledWith(expectText);
     });
+
 });
