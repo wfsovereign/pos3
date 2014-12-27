@@ -2,21 +2,21 @@
  * Created by wfsovereign on 14-12-26.
  */
 
-function build_preferential_strategy_from_promotion(){
+function build_preferential_strategy_from_promotion() {
     var regulartion_of_strategy_one = [];
-    _(loadPromotions()).find(function(promotion) {
-      if(promotion.name == "可口可乐品牌打折") {
-          regulartion_of_strategy_one.push(promotion);
-      }
+    _(loadPromotions()).find(function (promotion) {
+        if (promotion.name == "可口可乐品牌打折") {
+            regulartion_of_strategy_one.push(promotion);
+        }
     });
-    _(loadPromotions()).find(function(promotion) {
-        if(promotion.type == 'single produce discount') {
+    _(loadPromotions()).find(function (promotion) {
+        if (promotion.type == 'single produce discount') {
             promotion.barcode = ['ITEM000000'];
             regulartion_of_strategy_one.push(promotion);
         }
     });
-    _(loadPromotions()).find(function(promotion) {
-        if(promotion.name == '满100减3') {
+    _(loadPromotions()).find(function (promotion) {
+        if (promotion.name == '满100减3') {
             promotion.barcode = ['ITEM000005'];
             regulartion_of_strategy_one.push(promotion);
         }
@@ -25,8 +25,8 @@ function build_preferential_strategy_from_promotion(){
 }
 
 function is_this_promotion(barcode, barcodes) {
-    var result = _(barcodes).find(function(bar) {
-        if(bar == barcode) {
+    var result = _(barcodes).find(function (bar) {
+        if (bar == barcode) {
             return bar
         }
     });
@@ -34,44 +34,145 @@ function is_this_promotion(barcode, barcodes) {
 }
 
 function add_type_to_item(item, promotion) {
-    if(item.type){
+    if (item.type) {
         var type = {
-            type:promotion.type,
-            name:promotion.name,
-            discount:promotion.discount_rate
-            };
+            type: promotion.type,
+            name: promotion.name,
+            discount_rate: promotion.discount_rate
+        };
         item.type.push(type);
-    }else{
+    } else {
         item.type = [{
-            type:promotion.type,
-            name:promotion.name,
-            discount:promotion.discount_rate
+            type: promotion.type,
+            name: promotion.name,
+            discount_rate: promotion.discount_rate
         }]
     }
 }
 
 function add_promotion_from_promotion(item) {
-    _(build_preferential_strategy_from_promotion()).each(function(promotion) {
-        if(is_this_promotion(item.barcode,promotion.barcode)){
-            add_type_to_item(item,promotion);
+    _(build_preferential_strategy_from_promotion()).each(function (promotion) {
+        if (is_this_promotion(item.barcode, promotion.barcode)) {
+            add_type_to_item(item, promotion);
         }
     })
 }
 
+function not_exist_brand_and_single_discount(types) {
+    var exist_brand_discount=_(types).some(function(type){
+        return type.type == "brand discount"
+    });
+    var exist_single_produce_discount = _(types).some(function(type){
+        return type.type == "single produce discount"
+    });
+    return exist_brand_discount && exist_single_produce_discount;
+}
+function delete_invalid_type(item) {
+    if(not_exist_brand_and_single_discount(item.type)){
+        var index_number = _(item.type).indexOf(_(item.type).findWhere({type:'single produce discount'}));
+        item.type.splice(index_number,1);
+    }
+}
 function build_preferential_items_from_add_promotion_items(items) {
-    return _(items).filter(function(item) {
-        
-        return item.type !=undefined;
+    var preferential_items =  _(items).filter(function (item) {
+        return item.type != undefined;
+    });
+    _(preferential_items).each(function(item) {
+        delete_invalid_type(item);
+    });
+    return preferential_items;
+}
+
+function build_not_preferential_items_from_add_promotion_items(items) {
+    return _(items).filter(function (item) {
+        return item.type == undefined;
     })
 }
 
-function build_preference_info_obj_from_receipt_items(items) {
-    _(items).each(function(item){
+function get_promotion_info_from_one_type_sum(item, type) {
+    var single_sum = 0;
+    if (type.discount_rate == "5%") {
+        single_sum = item.subtotal * 0.05;
+    }
+    if (type.discount_rate == "10%") {
+        single_sum = item.subtotal * 0.1;
+    }
+    //if (type.discount_rate == "full one hundred reduce three" && item.subtotal >= 100) {
+    //    single_sum = Math.ceil(item.subtotal / 100) * 3;
+    //}
+    return single_sum;
+}
+
+function exist_this_preferential_name(name, preference_info_obj) {
+    return _(preference_info_obj).some(function (info_obj) {
+        return info_obj.name == name;
+    });
+}
+
+function get_this_promotion_info_obj(name, preference_info_obj) {
+    return _(preference_info_obj).filter(function (info_obj) {
+        return info_obj.name == name;
+    })[0]
+}
+
+function get_full_reduce(preference_info_obj) {
+    return _(preference_info_obj).filter(function(info_obj) {
+        return info_obj.name == "满100减3";
+    })[0]
+}
+
+function caculate_sum(not_preferential_items) {
+    var sum =0;
+    _(not_preferential_items).each(function(item){
+        sum+=item.subtotal;
+    });
+    sum = Math.floor(sum/100)*3;
+    return sum;
+}
+
+function delete_sum_equal_zero_for_preferential_info_obj(preference_info_obj) {
+    _(preference_info_obj).each(function(obj) {
+        if(obj.sum == 0){
+            preference_info_obj.splice(_(preference_info_obj).indexOf(obj),1)
+        }
+    });
+}
+function modify_full_reduce_to_preferential_info_obj(not_preferential_items, preference_info_obj) {
+    if(get_full_reduce(preference_info_obj)){
+        get_full_reduce(preference_info_obj).sum = caculate_sum(not_preferential_items);
+    }else{
+        var promotion_info_from_one_type ={
+            name:"满100减3",
+            sum:caculate_sum(not_preferential_items)
+        };
+        preference_info_obj.push(promotion_info_from_one_type)
+    }
+    delete_sum_equal_zero_for_preferential_info_obj(preference_info_obj);
+}
+
+function build_preferential_info_obj_from_receipt_items(items) {
+    _(items).each(function (item) {
         add_promotion_from_promotion(item);
     });
-    var preference_info_obj=[];
+    var not_preferential_items = build_not_preferential_items_from_add_promotion_items(items);
+
+    var preference_info_obj = [];
+    _(build_preferential_items_from_add_promotion_items(items)).each(function (item) {
+        _(item.type).each(function (type) {
+            var promotion_info_from_one_type = {
+                name: type.name,
+                sum: get_promotion_info_from_one_type_sum(item, type)
+            };
+            if (exist_this_preferential_name(promotion_info_from_one_type.name, preference_info_obj)) {
+                get_this_promotion_info_obj(promotion_info_from_one_type.name, preference_info_obj).sum += promotion_info_from_one_type.sum;
+            } else {
+                preference_info_obj.push(promotion_info_from_one_type);
+            }
+        });
+    });
+    modify_full_reduce_to_preferential_info_obj(not_preferential_items,preference_info_obj);
 
 
-    return items;
+    return preference_info_obj;
 
 }

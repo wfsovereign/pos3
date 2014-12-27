@@ -16,24 +16,49 @@ function build_paid_item_string(receipt_items) {
 
 function build_preferential_info_string(preferential_info_obj) {
     var result="";
-    result += '名称：可口可乐品牌打折，金额：14.00元\n' +
-    '名称：满100减3，金额：3.00元\n';
+    _(preferential_info_obj).each(function(obj) {
+        result+='名称：'+obj.name+'，金额：'+obj.sum.toFixed(2)+'元\n';
+    });
+
     return result;
 }
 
-function build_receipt_result(receipt_items) {
+function calculate_subtotal_for_receipt_items(receipt_items) {
+    var subtotal =0;
+    _(receipt_items).each(function(item) {
+        subtotal +=item.subtotal;
+    });
+    return subtotal;
+}
+
+function calculate_save_money_for_preference_info_obj(preference_info_obj) {
+    var save_money = 0;
+    _(preference_info_obj).each(function(obj) {
+        save_money+=obj.sum;
+    });
+    return save_money;
+}
+function build_receipt_result(receipt_items,preference_info_obj) {
     var result = "";
     result += '***<没钱赚商店>购物清单***\n';
     result += build_paid_item_string(receipt_items);
-    result += '----------------------\n' +
-    '优惠信息：\n';
-    var preferential_info_obj=0;
-    result+= build_preferential_info_string(preferential_info_obj);
+    var subtotal = calculate_subtotal_for_receipt_items(receipt_items);
+    if(preference_info_obj[0] != undefined){
+        var save_money = calculate_save_money_for_preference_info_obj(preference_info_obj);
+        result += '----------------------\n' +
+        '优惠信息：\n';
+        result+= build_preferential_info_string(preference_info_obj);
+        result += '----------------------\n' +
+        '总计：'+(subtotal-save_money).toFixed(2)+'(元)\n' +
+        '节省：'+save_money.toFixed(2)+'(元)\n' +
+        '**********************';
+    }else{
+        result += '----------------------\n' +
+        '总计：'+subtotal.toFixed(2)+'(元)\n' +
+        '**********************';
+    }
 
 
-    result += '----------------------\n' +
-    '总计：438.00(元)\n' +
-    '节省：17.00(元)\n' +
-    '**********************';
+
     return result;
 }

@@ -40,4 +40,20 @@ var result = _(inputs).map(function(obj) {
     };
    // console.log(_.values(obj))
 });
+var type = [
+    {
+        type:'brand',
+        name:"cole"
+    }
+];
+var number = _(type).indexOf(_(type).findWhere({type:'brand'}));
+//console.log(number,"=====");
+type.splice(number,1);
+console.log(type)
+var empty = [];
+console.log(type == empty);
+if(type){
+    console.log("there")
+    
+}
 
