@@ -13,6 +13,75 @@ function loadAllItems() {
     ];
 }
 
+function loadDiscount(){
+    return {
+        discount:[
+            {
+                type: 'brand discount',
+                name: "可口可乐品牌打折",
+                discount_rate: 0.9,
+                barcode: [
+                    'ITEM000000',
+                    'ITEM000010'
+                ]
+            },
+            {
+                type: 'single produce discount',
+                name:"单品打折",
+                discount_rate: 0.95,
+                barcode: [
+                    'ITEM000000',
+                    'ITEM000001'
+                ]
+            },
+            {
+                type: 'all produce discount',
+                name:"全场打折",
+                discount_rate: 0.9,
+                barcode: [
+                    'ITEM000000',
+                    'ITEM000001'
+                ]
+            }
+        ],
+        fullreduce:[
+            {
+                type: 'single produce fullreduce',
+                name: '满100减5',
+                discount_rate:{
+                    top:100,
+                    reduce:5
+                },
+                barcode: [
+                    'ITEM000000',
+                    'ITEM000001'
+                ]
+            },
+            {
+                type: 'brand produce fullreduce',
+                name: '满100减2',
+                discount_rate:{
+                    top:100,
+                    reduce:2
+                },
+                barcode: [
+                    'ITEM000005',
+                    'ITEM000008'
+                ]
+            },
+            {
+                type: 'all produce fullreduce',
+                name: '满100减3',
+                discount_rate:{
+                    top:100,
+                    reduce:3
+                },
+                barcode: []
+            }
+        ]
+    }
+}
+
 function loadPromotions() {
     return [
         {
@@ -41,7 +110,6 @@ function loadPromotions() {
                 'ITEM000000',
                 'ITEM000001'
             ]
-
         },
         {
             type: 'full reduction',
@@ -51,14 +119,12 @@ function loadPromotions() {
                 'ITEM000005',
                 'ITEM000008'
             ]
-
         },
         {
             type: 'full reduction',
             name: '满100减3',
             discount_rate:"full one hundred reduce three",
             barcode: []
-
         }
     ]
 }

@@ -36,6 +36,7 @@ function is_this_promotion(barcode, barcodes) {
 function add_type_to_item(item, promotion) {
     if (item.type) {
         var type = {
+
             type: promotion.type,
             name: promotion.name,
             discount_rate: promotion.discount_rate
@@ -121,15 +122,6 @@ function get_full_reduce(preference_info_obj) {
     })[0]
 }
 
-function caculate_sum(not_preferential_items) {
-    var sum =0;
-    _(not_preferential_items).each(function(item){
-        sum+=item.subtotal;
-    });
-    sum = Math.floor(sum/100)*3;
-    return sum;
-}
-
 function delete_sum_equal_zero_for_preferential_info_obj(preference_info_obj) {
     _(preference_info_obj).each(function(obj) {
         if(obj.sum == 0){
@@ -155,7 +147,6 @@ function build_preferential_info_obj_from_receipt_items(items) {
         add_promotion_from_promotion(item);
     });
     var not_preferential_items = build_not_preferential_items_from_add_promotion_items(items);
-
     var preference_info_obj = [];
     _(build_preferential_items_from_add_promotion_items(items)).each(function (item) {
         _(item.type).each(function (type) {

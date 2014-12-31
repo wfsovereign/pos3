@@ -23,21 +23,7 @@ function build_preferential_info_string(preferential_info_obj) {
     return result;
 }
 
-function calculate_subtotal_for_receipt_items(receipt_items) {
-    var subtotal =0;
-    _(receipt_items).each(function(item) {
-        subtotal +=item.subtotal;
-    });
-    return subtotal;
-}
 
-function calculate_save_money_for_preference_info_obj(preference_info_obj) {
-    var save_money = 0;
-    _(preference_info_obj).each(function(obj) {
-        save_money+=obj.sum;
-    });
-    return save_money;
-}
 function build_receipt_result(receipt_items,preference_info_obj) {
     var result = "";
     result += '***<没钱赚商店>购物清单***\n';
@@ -57,8 +43,5 @@ function build_receipt_result(receipt_items,preference_info_obj) {
         '总计：'+subtotal.toFixed(2)+'(元)\n' +
         '**********************';
     }
-
-
-
     return result;
 }
