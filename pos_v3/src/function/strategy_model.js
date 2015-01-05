@@ -32,21 +32,7 @@ function add_promotion_from_promotion(item) {
     })
 }
 
-function not_exist_brand_and_single_discount(types) {
-    var exist_brand_discount = _(types).some(function (type) {
-        return type.type == "brand discount"
-    });
-    var exist_single_produce_discount = _(types).some(function (type) {
-        return type.type == "single produce discount"
-    });
-    return exist_brand_discount && exist_single_produce_discount;
-}
-function delete_invalid_type(item) {
-    if (not_exist_brand_and_single_discount(item.type)) {
-        var index_number = _(item.type).indexOf(_(item.type).findWhere({type: 'single produce discount'}));
-        item.type.splice(index_number, 1);
-    }
-}
+
 function build_preferential_items_from_add_promotion_items(items) {
     var preferential_items = _(items).filter(function (item) {
         return item.type != undefined;
@@ -231,7 +217,29 @@ function del_fullduce_from_have_other_promotion_info(items,type) {
             del_type_to_this_item(type,item);
         }
     });
+}
 
+function not_exist_brand_and_single_discount(types) {
+    var exist_brand_discount = _(types).some(function (type) {
+        return type.type == "brand discount"
+    });
+    var exist_single_produce_discount = _(types).some(function (type) {
+        return type.type == "single produce discount"
+    });
+    return exist_brand_discount && exist_single_produce_discount;
+}
+function delete_invalid_type(item) {
+    if (not_exist_brand_and_single_discount(item.type)) {
+        var index_number = _(item.type).indexOf(_(item.type).findWhere({type: 'single produce discount'}));
+        item.type.splice(index_number, 1);
+    }
+}
+function del_single_discount_from_exist_single_and_brand_discount(items) {
+    _(items).each(function(item){
+        if(item.type.length>1){
+            delete_invalid_type(item);
+        }
+    });
 }
 function Strategy_A(receipt_items) {
     var regulation_of_strategy_A = get_promotion_A();
@@ -244,7 +252,7 @@ function Strategy_A(receipt_items) {
     });
 
     del_fullduce_from_have_other_promotion_info(receipt_items,have_besides_barcode_promotion.type);
-
+    del_single_discount_from_exist_single_and_brand_discount(receipt_items);
 }
 
 

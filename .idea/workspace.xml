@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="85b9848c-9126-4f01-92cd-137cd31ccc89" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pos_v3/src/function/strategy_model.js" afterPath="$PROJECT_DIR$/pos_v3/src/function/strategy_model.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pos_v3/src/function/test.js" afterPath="$PROJECT_DIR$/pos_v3/src/function/test.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="pos.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -58,8 +56,8 @@
       <file leaf-file-name="strategy_model.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pos_v3/src/function/strategy_model.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5912487" vertical-offset="4484" max-vertical-offset="6336">
-              <caret line="229" column="31" selection-start-line="229" selection-start-column="31" selection-end-line="229" selection-end-column="31" />
+            <state vertical-scroll-proportion="0.45037353" vertical-offset="5122" max-vertical-offset="6512">
+              <caret line="252" column="0" selection-start-line="252" selection-start-column="0" selection-end-line="252" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -162,7 +160,7 @@
     <detection-done>true</detection-done>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="416" />
+    <option name="x" value="384" />
     <option name="y" value="52" />
     <option name="width" value="1536" />
     <option name="height" value="1028" />
@@ -503,7 +501,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="416" y="52" width="1536" height="1028" extended-state="0" />
+    <frame x="384" y="52" width="1536" height="1028" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -950,8 +948,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pos_v3/src/function/strategy_model.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5912487" vertical-offset="4484" max-vertical-offset="6336">
-          <caret line="229" column="31" selection-start-line="229" selection-start-column="31" selection-end-line="229" selection-end-column="31" />
+        <state vertical-scroll-proportion="0.45037353" vertical-offset="5122" max-vertical-offset="6512">
+          <caret line="252" column="0" selection-start-line="252" selection-start-column="0" selection-end-line="252" selection-end-column="0" />
           <folding />
         </state>
       </provider>
