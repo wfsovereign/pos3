@@ -66,8 +66,8 @@ determine.prototype.assign_preferential_information = function(discount_commodit
 
     _.each(purchase_commodity,function(purcommodity){
         for(var i=0; i<discount_commodity.length;i++){
-            for(var j=0; j<discount_commodity[i].barcodes.length;j++){
-                if(purcommodity.barcode == discount_commodity[i].barcodes[j]){
+            for(var j=0; j<discount_commodity[i].barcode.length;j++){
+                if(purcommodity.barcode == discount_commodity[i].barcode[j]){
                     purcommodity.preferential_information = discount_commodity[i].type;
                 }
             }
@@ -79,7 +79,7 @@ determine.prototype.assign_preferential_information = function(discount_commodit
 determine.prototype.get_gift = function(discount_commodity,rich_purchase_commodity){
     var gift_result;
     gift_result=[];
-    var barcodesarr=discount_commodity[0].barcodes;
+    var barcodesarr=discount_commodity[0].barcode;
     var purchase_commodity_mirror=[];
 // 对象传值与引用的关系，数组对象这种赋值，一般都是引用，不论改变哪一个的值，他们两个的值都会改变，因为传值的时候，是赋予新对象一个指针而已
     _.each(rich_purchase_commodity,function(purchase){

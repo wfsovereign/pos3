@@ -25,3 +25,7 @@ function calculate_save_money_for_preference_info_obj(preference_info_obj) {
     });
     return save_money;
 }
+
+function Calculate(){
+
+}

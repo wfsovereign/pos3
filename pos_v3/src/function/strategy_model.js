@@ -3,52 +3,25 @@
  */
 
 function build_preferential_strategy_from_promotion() {
-    var regulartion_of_strategy_one = [];
+    var regulation_of_strategy_one = [];
     _(loadPromotions()).find(function (promotion) {
         if (promotion.name == "可口可乐品牌打折") {
-            regulartion_of_strategy_one.push(promotion);
+            regulation_of_strategy_one.push(promotion);
         }
     });
     _(loadPromotions()).find(function (promotion) {
         if (promotion.type == 'single produce discount') {
             promotion.barcode = ['ITEM000000'];
-            regulartion_of_strategy_one.push(promotion);
+            regulation_of_strategy_one.push(promotion);
         }
     });
     _(loadPromotions()).find(function (promotion) {
         if (promotion.name == '满100减3') {
             promotion.barcode = ['ITEM000005'];
-            regulartion_of_strategy_one.push(promotion);
+            regulation_of_strategy_one.push(promotion);
         }
     });
-    return regulartion_of_strategy_one;
-}
-
-function is_this_promotion(barcode, barcodes) {
-    var result = _(barcodes).find(function (bar) {
-        if (bar == barcode) {
-            return bar
-        }
-    });
-    return result != undefined
-}
-
-function add_type_to_item(item, promotion) {
-    if (item.type) {
-        var type = {
-
-            type: promotion.type,
-            name: promotion.name,
-            discount_rate: promotion.discount_rate
-        };
-        item.type.push(type);
-    } else {
-        item.type = [{
-            type: promotion.type,
-            name: promotion.name,
-            discount_rate: promotion.discount_rate
-        }]
-    }
+    return regulation_of_strategy_one;
 }
 
 function add_promotion_from_promotion(item) {
@@ -60,25 +33,25 @@ function add_promotion_from_promotion(item) {
 }
 
 function not_exist_brand_and_single_discount(types) {
-    var exist_brand_discount=_(types).some(function(type){
+    var exist_brand_discount = _(types).some(function (type) {
         return type.type == "brand discount"
     });
-    var exist_single_produce_discount = _(types).some(function(type){
+    var exist_single_produce_discount = _(types).some(function (type) {
         return type.type == "single produce discount"
     });
     return exist_brand_discount && exist_single_produce_discount;
 }
 function delete_invalid_type(item) {
-    if(not_exist_brand_and_single_discount(item.type)){
-        var index_number = _(item.type).indexOf(_(item.type).findWhere({type:'single produce discount'}));
-        item.type.splice(index_number,1);
+    if (not_exist_brand_and_single_discount(item.type)) {
+        var index_number = _(item.type).indexOf(_(item.type).findWhere({type: 'single produce discount'}));
+        item.type.splice(index_number, 1);
     }
 }
 function build_preferential_items_from_add_promotion_items(items) {
-    var preferential_items =  _(items).filter(function (item) {
+    var preferential_items = _(items).filter(function (item) {
         return item.type != undefined;
     });
-    _(preferential_items).each(function(item) {
+    _(preferential_items).each(function (item) {
         delete_invalid_type(item);
     });
     return preferential_items;
@@ -117,25 +90,25 @@ function get_this_promotion_info_obj(name, preference_info_obj) {
 }
 
 function get_full_reduce(preference_info_obj) {
-    return _(preference_info_obj).filter(function(info_obj) {
+    return _(preference_info_obj).filter(function (info_obj) {
         return info_obj.name == "满100减3";
     })[0]
 }
 
 function delete_sum_equal_zero_for_preferential_info_obj(preference_info_obj) {
-    _(preference_info_obj).each(function(obj) {
-        if(obj.sum == 0){
-            preference_info_obj.splice(_(preference_info_obj).indexOf(obj),1)
+    _(preference_info_obj).each(function (obj) {
+        if (obj.sum == 0) {
+            preference_info_obj.splice(_(preference_info_obj).indexOf(obj), 1)
         }
     });
 }
 function modify_full_reduce_to_preferential_info_obj(not_preferential_items, preference_info_obj) {
-    if(get_full_reduce(preference_info_obj)){
+    if (get_full_reduce(preference_info_obj)) {
         get_full_reduce(preference_info_obj).sum = caculate_sum(not_preferential_items);
-    }else{
-        var promotion_info_from_one_type ={
-            name:"满100减3",
-            sum:caculate_sum(not_preferential_items)
+    } else {
+        var promotion_info_from_one_type = {
+            name: "满100减3",
+            sum: caculate_sum(not_preferential_items)
         };
         preference_info_obj.push(promotion_info_from_one_type)
     }
@@ -161,9 +134,111 @@ function build_preferential_info_obj_from_receipt_items(items) {
             }
         });
     });
-    modify_full_reduce_to_preferential_info_obj(not_preferential_items,preference_info_obj);
-
-
+    modify_full_reduce_to_preferential_info_obj(not_preferential_items, preference_info_obj);
     return preference_info_obj;
-
 }
+
+function get_promotion_A() {
+    var promotion_A = [];
+    promotion_A.push(
+        new Generate_promotion('brand discount', '可口可乐品牌打折', 0.9, {barcode: ['ITEM000000', 'ITEM000010']}).discount());
+    promotion_A.push(
+        new Generate_promotion('single produce discount', '单品打折', 0.95, {barcode: ['ITEM000000']}).discount());
+    promotion_A.push(
+        new Generate_promotion(
+            'all produce fullreduce', '满100减3',
+            {top: 100, reduce: 3}, {besides_barcode: ['ITEM000005'], barcode: "all"}).fullreduce()
+    );
+    return promotion_A;
+}
+
+
+function is_this_promotion(barcode, barcodes) {
+    var result = _(barcodes).find(function (bar) {
+        if (bar == barcode) {
+            return bar
+        }
+    });
+    return result != undefined
+}
+function exist_this_promotion(barcode, barcodes) {
+    if (barcodes == "all") {
+        return true
+    } else if (barcodes) {
+        var result = _(barcodes).find(function (bar) {
+            if (bar == barcode) {
+                return bar
+            }
+        });
+        return result != undefined
+    }
+    return false
+}
+
+function add_type_to_item(item, promotion) {
+    if (item.type) {
+        var type = {
+            type: promotion.type,
+            name: promotion.name,
+            discount_rate: promotion.discount_rate
+        };
+        item.type.push(type);
+    } else {
+        item.type = [{
+            type: promotion.type,
+            name: promotion.name,
+            discount_rate: promotion.discount_rate
+        }]
+    }
+}
+
+function add_promotion_info_from_this_promotion(promotion, item) {
+    _(promotion).each(function (promotion) {
+        if (exist_this_promotion(item.barcode, promotion.barcode.barcode)) {
+            add_type_to_item(item, promotion);
+        }
+    })
+}
+
+function Strategy_A(receipt_items) {
+    var regulation_of_strategy_A = get_promotion_A();
+    _(receipt_items).each(function (item) {
+        add_promotion_info_from_this_promotion(regulation_of_strategy_A, item)
+    })
+    ;
+    console.log(regulation_of_strategy_A, '1234');
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

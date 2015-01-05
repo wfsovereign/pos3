@@ -65,7 +65,7 @@ function determine() {
     };
     determine.prototype.getgift = function(pro,bbox){
         var box =this.get_emptybox();
-        var rel =pro[0].barcodes;
+        var rel =pro[0].barcode;
         _.each(rel,function(b){
             _.each(bbox,function(bbox) {
                 if (b == bbox.barcode && bbox.count != 0) {

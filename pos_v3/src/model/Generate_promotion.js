@@ -13,7 +13,7 @@ Generate_promotion.prototype.discount = function(){
       type: this.type,
       name: this.name,
       discount_rate: this.discount_rate,
-      barcode: this.barcode
+      barcode: this.barcode || {}
   }
 };
 
@@ -22,6 +22,6 @@ Generate_promotion.prototype.fullreduce = function(){
         type: this.type,
         name: this.name,
         discount_rate: this.discount_rate,
-        barcode: this.barcode
+        barcode: this.barcode || {}
     }
 };

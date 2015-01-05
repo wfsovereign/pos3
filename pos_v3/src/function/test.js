@@ -130,6 +130,7 @@ console.log(te1 === tes);
 
 //装饰者用于通过重载方法的形式添加新功能，该模式可以在被装饰者前面或者后面加上自己的行为以达到特定的目的。
 
+/*
 
 function ConcreteClass() {
     this.performTask = function () {
@@ -160,4 +161,16 @@ var concrete = new ConcreteClass();
 var decorator1 = new ConcreteDecoratorClass(concrete);
 //var decorator2 = new ConcreteDecoratorClass(decorator1);
 decorator1.performTask();
+*/
 
+
+//function test_that(){
+//    if(1){
+//        var a =5;
+//        console.log('2');
+//        return true
+//    }
+//    console.log('1');
+//    return false
+//}
+//test_that();

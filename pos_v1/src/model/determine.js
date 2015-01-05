@@ -73,7 +73,7 @@ determine.prototype.get_goods =function(allitem){
 determine.prototype.getgift = function(pro,bbox){
     var box =this.get_emptybox();
 
-    var rel =pro[0].barcodes;
+    var rel =pro[0].barcode;
     _.each(rel,function(b){
 
         _.each(bbox,function(bbox) {

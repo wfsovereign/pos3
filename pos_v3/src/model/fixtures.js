@@ -55,7 +55,12 @@ function loadDiscount(){
                 barcode: [
                     'ITEM000000',
                     'ITEM000001'
-                ]
+                ],
+                barcodes:{
+
+                    besides_barcode:[],
+                    barcode:[]
+                }
             },
             {
                 type: 'brand produce fullreduce',
