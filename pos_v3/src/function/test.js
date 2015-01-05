@@ -174,3 +174,34 @@ decorator1.performTask();
 //    return false
 //}
 //test_that();
+
+// 不能判断两个对象是否相等
+
+//var type=[
+//    {
+//        type: 'single produce fullreduce',
+//        name: '满100减5',
+//        discount_rate:{
+//            top:100,
+//            reduce:5
+//        }
+//    },
+//    {
+//        type: 'brand produce fullreduce',
+//    name: '满100减2',
+//    discount_rate:{
+//    top:100,
+//        reduce:2
+//    }
+//    }];
+//var mark = {
+//    type: 'brand produce fullreduce',
+//    name: '满100减2',
+//    discount_rate:{
+//        top:100,
+//        reduce:2
+//    }
+//};
+//console.log(mark);
+//console.log(type[1]);
+//console.log(_.indexOf(type,mark),'123');

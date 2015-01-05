@@ -192,21 +192,59 @@ function add_type_to_item(item, promotion) {
     }
 }
 
-function add_promotion_info_from_this_promotion(promotion, item) {
-    _(promotion).each(function (promotion) {
+function get_besides_barcode_from_this_promotion(promotions) {
+   return _(promotions).filter(function(promotion){
+        return promotion.barcode.besides_barcode != undefined
+    })[0]
+}
+function add_promotion_info_from_this_promotion(promotions, item) {
+    _(promotions).each(function (promotion) {
         if (exist_this_promotion(item.barcode, promotion.barcode.barcode)) {
             add_type_to_item(item, promotion);
         }
-    })
+    });
 }
 
+function del_type_to_this_item(type, item) {
+   var count = 0,index;
+    _(item.type).each(function(item_type){
+        if(item_type.type == type){
+            index = count;
+        }
+        count++;
+    });
+    if(index>=0){
+        item.type.splice(index,1);
+    }
+}
+function del_promotion_info_from_this_barcode(barcode,items,type) {
+    console.log(items,'1');
+    _(items).each(function(item){
+        if(barcode == item.barcode){
+            del_type_to_this_item(type,item);
+        }
+    })
+}
+function del_fullduce_from_have_other_promotion_info(items,type) {
+    _(items).each(function(item){
+        if(item.type.length>1){
+            del_type_to_this_item(type,item);
+        }
+    });
+
+}
 function Strategy_A(receipt_items) {
     var regulation_of_strategy_A = get_promotion_A();
     _(receipt_items).each(function (item) {
         add_promotion_info_from_this_promotion(regulation_of_strategy_A, item)
-    })
-    ;
-    console.log(regulation_of_strategy_A, '1234');
+    });
+    var have_besides_barcode_promotion = get_besides_barcode_from_this_promotion(regulation_of_strategy_A);
+    _(have_besides_barcode_promotion.barcode.besides_barcode).each(function (barcode) {
+        del_promotion_info_from_this_barcode(barcode, receipt_items,have_besides_barcode_promotion.type);
+    });
+
+    del_fullduce_from_have_other_promotion_info(receipt_items,have_besides_barcode_promotion.type);
+
 }
 
 
