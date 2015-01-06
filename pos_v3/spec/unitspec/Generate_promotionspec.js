@@ -1,8 +1,8 @@
 /**
  * Created by wfsovereign on 14-12-31.
  */
-describe("Generate_promotion",function(){
 
+describe("Generate_promotion",function(){
     it("should output correct text when create object Generate_promotion" +
     "('brand discount','可口可乐品牌打折',0.9,['ITEM000000','ITEM000010'] and use discount function",function(){
         var expectText =  {

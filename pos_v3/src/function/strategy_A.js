@@ -1,6 +1,7 @@
 /**
  * Created by wfsovereign on 14-12-26.
  */
+/*
 
 function build_preferential_strategy_from_promotion() {
     var regulation_of_strategy_one = [];
@@ -101,6 +102,17 @@ function build_preferential_info_obj_from_receipt_items(items) {
     modify_full_reduce_to_preferential_info_obj(not_preferential_items, preference_info_obj);
     return preference_info_obj;
 }
+ function is_this_promotion(barcode, barcodes) {
+ var result = _(barcodes).find(function (bar) {
+ if (bar == barcode) {
+ return bar
+ }
+ });
+ return result != undefined
+ }
+
+
+*/
 
 
 
@@ -117,29 +129,7 @@ function build_preferential_info_obj_from_receipt_items(items) {
 
 
 
-function get_promotion_A() {
-    var promotion_A = [];
-    promotion_A.push(
-        new Generate_promotion('brand discount', '可口可乐品牌打折', 0.9, {barcode: ['ITEM000000', 'ITEM000010']}).discount());
-    promotion_A.push(
-        new Generate_promotion('single produce discount', '单品打折', 0.95, {barcode: ['ITEM000000']}).discount());
-    promotion_A.push(
-        new Generate_promotion(
-            'all produce fullreduce', '满100减3',
-            {top: 100, reduce: 3}, {besides_barcode: ['ITEM000005'], barcode: "all"}).fullreduce()
-    );
-    return promotion_A;
-}
 
-
-function is_this_promotion(barcode, barcodes) {
-    var result = _(barcodes).find(function (bar) {
-        if (bar == barcode) {
-            return bar
-        }
-    });
-    return result != undefined
-}
 function exist_this_promotion(barcode, barcodes) {
     if (barcodes == "all") {
         return true
@@ -234,21 +224,31 @@ function del_single_discount_from_exist_single_and_brand_discount(items) {
         }
     });
 }
+
+function get_promotion_A() {
+    var promotion_A = [];
+    promotion_A.push(
+        new Generate_promotion('brand discount', '可口可乐品牌打折', 0.9, {barcode: ['ITEM000000', 'ITEM000010']}).discount());
+    promotion_A.push(
+        new Generate_promotion('single produce discount', '单品打折', 0.95, {barcode: ['ITEM000000']}).discount());
+    promotion_A.push(
+        new Generate_promotion(
+            'all produce fullreduce', '满100减3',
+            {top: 100, reduce: 3}, {besides_barcode: ['ITEM000005'], barcode: "all"}).fullreduce()
+    );
+    return promotion_A;
+}
 function Strategy_A(receipt_items) {
     var regulation_of_strategy_A = get_promotion_A();
-
     _(receipt_items).each(function (item) {
         add_promotion_info_from_this_promotion(regulation_of_strategy_A, item)
     });
-
     var have_besides_barcode_promotion = get_besides_barcode_from_this_promotion(regulation_of_strategy_A);
     _(have_besides_barcode_promotion.barcode.besides_barcode).each(function (barcode) {
         del_promotion_info_from_this_barcode(barcode, receipt_items,have_besides_barcode_promotion.type);
     });
-
     del_fullduce_from_have_other_promotion_info(receipt_items,have_besides_barcode_promotion.type);
     del_single_discount_from_exist_single_and_brand_discount(receipt_items);
-
     return receipt_items;
 }
 

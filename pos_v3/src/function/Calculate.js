@@ -26,31 +26,13 @@ function calculate_save_money_for_preference_info_obj(preference_info_obj) {
     return save_money;
 }
 
-function get_promotion_info_from_one_type_sum(item, type) {
-    var single_sum = 0;
-    if (type.discount_rate == "5%") {
-        single_sum = item.subtotal * 0.05;
-    }
-    if (type.discount_rate == "10%") {
-        single_sum = item.subtotal * 0.1;
-    }
-    //if (type.discount_rate == "full one hundred reduce three" && item.subtotal >= 100) {
-    //    single_sum = Math.ceil(item.subtotal / 100) * 3;
-    //}
-    return single_sum;
-}
+
 
 
 function Calculate(items){
     this.items = items;
     this.preference_info_obj=[];
     this._preference_from_type();
-    //_(items).each(function (item) {
-    //    if(item.type.length>0){
-    //        this._preference_from_type(item);
-    //    }
-    //});
-
 }
 
 function exist_this_preferential_name(name, preference_info_obj) {
