@@ -49,31 +49,9 @@ function build_not_preferential_items_from_add_promotion_items(items) {
     })
 }
 
-function get_promotion_info_from_one_type_sum(item, type) {
-    var single_sum = 0;
-    if (type.discount_rate == "5%") {
-        single_sum = item.subtotal * 0.05;
-    }
-    if (type.discount_rate == "10%") {
-        single_sum = item.subtotal * 0.1;
-    }
-    //if (type.discount_rate == "full one hundred reduce three" && item.subtotal >= 100) {
-    //    single_sum = Math.ceil(item.subtotal / 100) * 3;
-    //}
-    return single_sum;
-}
 
-function exist_this_preferential_name(name, preference_info_obj) {
-    return _(preference_info_obj).some(function (info_obj) {
-        return info_obj.name == name;
-    });
-}
 
-function get_this_promotion_info_obj(name, preference_info_obj) {
-    return _(preference_info_obj).filter(function (info_obj) {
-        return info_obj.name == name;
-    })[0]
-}
+
 
 function get_full_reduce(preference_info_obj) {
     return _(preference_info_obj).filter(function (info_obj) {
@@ -123,6 +101,21 @@ function build_preferential_info_obj_from_receipt_items(items) {
     modify_full_reduce_to_preferential_info_obj(not_preferential_items, preference_info_obj);
     return preference_info_obj;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function get_promotion_A() {
     var promotion_A = [];
@@ -181,7 +174,7 @@ function add_type_to_item(item, promotion) {
 function get_besides_barcode_from_this_promotion(promotions) {
    return _(promotions).filter(function(promotion){
         return promotion.barcode.besides_barcode != undefined
-    })[0]
+    })[0];
 }
 function add_promotion_info_from_this_promotion(promotions, item) {
     _(promotions).each(function (promotion) {
@@ -204,7 +197,7 @@ function del_type_to_this_item(type, item) {
     }
 }
 function del_promotion_info_from_this_barcode(barcode,items,type) {
-    console.log(items,'1');
+
     _(items).each(function(item){
         if(barcode == item.barcode){
             del_type_to_this_item(type,item);
@@ -243,9 +236,11 @@ function del_single_discount_from_exist_single_and_brand_discount(items) {
 }
 function Strategy_A(receipt_items) {
     var regulation_of_strategy_A = get_promotion_A();
+
     _(receipt_items).each(function (item) {
         add_promotion_info_from_this_promotion(regulation_of_strategy_A, item)
     });
+
     var have_besides_barcode_promotion = get_besides_barcode_from_this_promotion(regulation_of_strategy_A);
     _(have_besides_barcode_promotion.barcode.besides_barcode).each(function (barcode) {
         del_promotion_info_from_this_barcode(barcode, receipt_items,have_besides_barcode_promotion.type);
@@ -253,6 +248,8 @@ function Strategy_A(receipt_items) {
 
     del_fullduce_from_have_other_promotion_info(receipt_items,have_besides_barcode_promotion.type);
     del_single_discount_from_exist_single_and_brand_discount(receipt_items);
+
+    return receipt_items;
 }
 
 

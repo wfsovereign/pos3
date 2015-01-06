@@ -19,7 +19,6 @@ function build_preferential_info_string(preferential_info_obj) {
     _(preferential_info_obj).each(function(obj) {
         result+='名称：'+obj.name+'，金额：'+obj.sum.toFixed(2)+'元\n';
     });
-
     return result;
 }
 
@@ -29,7 +28,7 @@ function build_receipt_result(receipt_items,preference_info_obj) {
     result += '***<没钱赚商店>购物清单***\n';
     result += build_paid_item_string(receipt_items);
     var subtotal = calculate_subtotal_for_receipt_items(receipt_items);
-    if(preference_info_obj[0] != undefined){
+    if(preference_info_obj != undefined){
         var save_money = calculate_save_money_for_preference_info_obj(preference_info_obj);
         result += '----------------------\n' +
         '优惠信息：\n';
