@@ -2,14 +2,14 @@
  * Created by wfsovereign on 14-12-31.
  */
 
-function caculate_sum(not_preferential_items) {
-    var sum =0;
-    _(not_preferential_items).each(function(item){
-        sum+=item.subtotal;
-    });
-    sum = Math.floor(sum/100)*3;
-    return sum;
-}
+//function caculate_sum(not_preferential_items) {
+//    var sum =0;
+//    _(not_preferential_items).each(function(item){
+//        sum+=item.subtotal;
+//    });
+//    sum = Math.ceil(sum/100)*3;
+//    return sum;
+//}
 function calculate_subtotal_for_receipt_items(receipt_items) {
     var subtotal =0;
     _(receipt_items).each(function(item) {
@@ -29,11 +29,6 @@ function calculate_save_money_for_preference_info_obj(preference_info_obj) {
 
 
 
-function Calculate(items){
-    this.items = items;
-    this.preference_info_obj=[];
-    this._preference_from_type();
-}
 
 function exist_this_preferential_name(name, preference_info_obj) {
     return _(preference_info_obj).some(function (info_obj) {
@@ -46,8 +41,21 @@ function get_this_promotion_info_obj(name, preference_info_obj) {
         return info_obj.name == name;
     })[0]
 }
+function Calculate(items){
+    this.items = items;
+    this.preference_info_obj=[];
+    this._preference_from_type_discount();
+    this._preference_from_type_fullreduce();
+}
 
-Calculate.prototype._preference_from_type = function(){
+Calculate.prototype._preference_from_type_fullreduce = function(){
+    _(this.preference_info_obj).each(function(info_obj){
+        if(typeof (info_obj.type) == 'object'){
+            info_obj.sum = Math.floor(info_obj.sum/info_obj.type.top)*info_obj.type.reduce;
+        }
+    })
+};
+Calculate.prototype._preference_from_type_discount = function(){
     var preference_info_obj=[];
     var items = this.items;
     _(items).each(function(item){
@@ -62,7 +70,20 @@ Calculate.prototype._preference_from_type = function(){
         };
         _(item.type).each(function (type) {
             var promotion_info_from_one_type = {};
-            if (typeof(type.discount_rate) == "object") {
+            if (type.special) {
+                promotion_info_from_one_type = {
+                    name: type.special,
+                    sum: item.subtotal,
+                    type:type.discount_rate
+                };
+            }else if(type.type == "single produce discount"){
+                promotion_info_from_one_type = {
+                    name: item.name+type.name,
+                    sum: Math.round(item.subtotal*(1-type.discount_rate))
+                };
+                console.log(item.subtotal*(1-type.discount_rate));
+            }
+            else if(typeof(type.discount_rate) == "object") {
                 promotion_info_from_one_type = {
                     name: type.name,
                     sum: get_summary_for_object_of_discount_rate(item,type)
@@ -70,7 +91,7 @@ Calculate.prototype._preference_from_type = function(){
             } else {
                 promotion_info_from_one_type = {
                     name: type.name,
-                    sum: Math.ceil(item.subtotal * (1-type.discount_rate))
+                    sum: Math.round(item.subtotal * (1-type.discount_rate))
                 };
             }
             if (exist_this_preferential_name(promotion_info_from_one_type.name, preference_info_obj)) {
@@ -80,6 +101,7 @@ Calculate.prototype._preference_from_type = function(){
             }
         });
     }
+
     this.preference_info_obj = preference_info_obj;
 };
 

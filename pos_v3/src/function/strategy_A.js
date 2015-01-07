@@ -149,23 +149,21 @@ function add_type_to_item(item, promotion) {
         var type = {
             type: promotion.type,
             name: promotion.name,
-            discount_rate: promotion.discount_rate
+            discount_rate: promotion.discount_rate,
+            special: promotion.special
         };
         item.type.push(type);
     } else {
         item.type = [{
             type: promotion.type,
             name: promotion.name,
-            discount_rate: promotion.discount_rate
+            discount_rate: promotion.discount_rate,
+            special: promotion.special
         }]
     }
 }
 
-function get_besides_barcode_from_this_promotion(promotions) {
-   return _(promotions).filter(function(promotion){
-        return promotion.barcode.besides_barcode != undefined
-    })[0];
-}
+
 function add_promotion_info_from_this_promotion(promotions, item) {
     _(promotions).each(function (promotion) {
         if (exist_this_promotion(item.barcode, promotion.barcode.barcode)) {
@@ -225,6 +223,12 @@ function del_single_discount_from_exist_single_and_brand_discount(items) {
     });
 }
 
+function get_besides_barcode_from_this_promotion(promotions) {
+    return _(promotions).filter(function(promotion){
+        return promotion.barcode.besides_barcode != undefined
+    })[0];
+}
+
 function get_promotion_A() {
     var promotion_A = [];
     promotion_A.push(
@@ -249,7 +253,7 @@ function Strategy_A(receipt_items) {
     });
     del_fullduce_from_have_other_promotion_info(receipt_items,have_besides_barcode_promotion.type);
     del_single_discount_from_exist_single_and_brand_discount(receipt_items);
-    return receipt_items;
+    //return receipt_items;
 }
 
 

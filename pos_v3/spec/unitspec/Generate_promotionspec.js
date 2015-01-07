@@ -12,7 +12,8 @@ describe("Generate_promotion",function(){
             barcode: [
                 'ITEM000000',
                 'ITEM000010'
-            ]
+            ],
+            special:null
         };
         var promotion = new Generate_promotion("brand discount",'可口可乐品牌打折',0.9,[
             'ITEM000000',
@@ -34,7 +35,8 @@ describe("Generate_promotion",function(){
             barcode: [
                 'ITEM000000',
                 'ITEM000001'
-            ]
+            ],
+            special:null
         };
         var promotion = new Generate_promotion("single produce fullreduce",'满100减5',{top:100,reduce:5},[
             'ITEM000000',
@@ -53,7 +55,8 @@ describe("Generate_promotion",function(){
                     top:100,
                     reduce:5
                 },
-                barcode: {}
+                barcode: {},
+                special:null
             };
             var promotion = new Generate_promotion("single produce fullreduce",'满100减5',
                 {top:100,reduce:5}).fullreduce();
