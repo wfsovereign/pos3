@@ -77,15 +77,12 @@ calculationManager.factory = function(type,item){
     }
 };
 
-function Calculator(items){ //calculator
+function Calculator(items){
     this.items = items;
     this.preference_info_obj=[];
 
 }
-Calculator.prototype.calculate = function () {
-    this._preference_from_type_discount();//calculate
-    this._preference_from_type_fullreduce();
-};
+
 Calculator.prototype._preference_from_type_fullreduce = function(){
     _(this.preference_info_obj).each(function(info_obj){
         if(typeof (info_obj.type) == 'object'){
@@ -93,8 +90,6 @@ Calculator.prototype._preference_from_type_fullreduce = function(){
         }
     })
 };
-
-
 
 Calculator.prototype._preference_from_type_discount = function(){
     var preference_info_obj=[];
@@ -114,6 +109,11 @@ Calculator.prototype._preference_from_type_discount = function(){
         });
     }
     this.preference_info_obj = preference_info_obj;
+};
+
+Calculator.prototype.calculate = function () {
+    this._preference_from_type_discount();
+    this._preference_from_type_fullreduce();
 };
 
 Calculator.prototype.get_preference_info_obj = function(){

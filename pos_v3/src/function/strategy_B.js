@@ -36,29 +36,6 @@ function del_invalid_discount_from_exist_single_and_brand_discount_for_B(items) 
     });
 }
 
-function add_mark_for_items_from_name(items, special_name) {
-    _(items).each(function (item) {
-        _(item.type).each(function (type) {
-            if (type.special == special_name) {
-                item.mark = 1;
-            }
-        })
-    });
-}
-function get_this_name_obj_from_items(special_name, items) {
-    add_mark_for_items_from_name(items, special_name);
-    return _(items).where({mark:1})
-}
-function del_brand_of_fullreduce_remain_one(special_name,items){
-    //console.log(get_this_name_obj_from_items(special_name,items),"111111111111111111");
-    var  length = get_this_name_obj_from_items(special_name,items).length;
-    if(length>1){
-
-    }
-}
-
-
-
 function filter_item_of_not_have_type(items) {
     return _(items).filter(function(item){
         return item.type != undefined;
@@ -71,6 +48,5 @@ function Strategy_B(receipt_items){
     });
     receipt_items = filter_item_of_not_have_type(receipt_items);
     del_invalid_discount_from_exist_single_and_brand_discount_for_B(receipt_items);
-    del_brand_of_fullreduce_remain_one("康师傅品牌满100减2",receipt_items);
     return receipt_items;
 }
