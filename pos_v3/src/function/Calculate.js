@@ -27,9 +27,6 @@ function calculate_save_money_for_preference_info_obj(preference_info_obj) {
 }
 
 
-
-
-
 function exist_this_preferential_name(name, preference_info_obj) {
     return _(preference_info_obj).some(function (info_obj) {
         return info_obj.name == name;
@@ -41,21 +38,73 @@ function get_this_promotion_info_obj(name, preference_info_obj) {
         return info_obj.name == name;
     })[0]
 }
-function Calculate(items){
+
+function Calculator(items){ //calculator
     this.items = items;
     this.preference_info_obj=[];
-    this._preference_from_type_discount();
-    this._preference_from_type_fullreduce();
-}
 
-Calculate.prototype._preference_from_type_fullreduce = function(){
+}
+Calculator.prototype.calculate = function () {
+    this._preference_from_type_discount();//calculate
+    this._preference_from_type_fullreduce();
+};
+Calculator.prototype._preference_from_type_fullreduce = function(){
     _(this.preference_info_obj).each(function(info_obj){
         if(typeof (info_obj.type) == 'object'){
             info_obj.sum = Math.floor(info_obj.sum/info_obj.type.top)*info_obj.type.reduce;
         }
     })
 };
-Calculate.prototype._preference_from_type_discount = function(){
+
+/*Calculate.prototype._create_specail_type = function(type,item){
+    return {
+        name: type.special,
+        sum: item.subtotal,
+        type:type.discount_rate
+    };
+
+};
+Calculate.prototype._select_type_of_generate_preference_facetor = function(type_method,type,item){
+    return new Calculate.prototype[type_method](type,item);
+};*/
+var calculationManager = {};
+calculationManager.single_produce_discount = function(type,item){
+    return {
+        name: item.name+type.name,
+        sum: Math.round(item.subtotal*(1-type.discount_rate))
+    }
+};
+calculationManager.create_fullreduce = function(type,item){
+    return {
+        name: type.name,
+        sum:  Math.floor(item.subtotal/type.discount_rate.top)*type.discount_rate.reduce
+    }
+};
+calculationManager.create_special =function(type,item){
+    return {
+        name: type.special,
+        sum: item.subtotal,
+        type:type.discount_rate
+    }
+};
+calculationManager.brand_discount = function(type,item){
+    return {
+        name: type.name,
+        sum: Math.round(item.subtotal * (1-type.discount_rate))
+    }
+};
+calculationManager.factory = function(type,item){
+    if(type.special){
+        return new calculationManager["create_special"](type,item)
+    }else if(typeof (type.discount_rate) == "object"){
+        return new calculationManager["create_fullreduce"](type,item)
+    } else {
+        console.log(type);
+            return new calculationManager[type.type](type,item)
+        }
+};
+
+Calculator.prototype._preference_from_type_discount = function(){
     var preference_info_obj=[];
     var items = this.items;
     _(items).each(function(item){
@@ -63,14 +112,13 @@ Calculate.prototype._preference_from_type_discount = function(){
              get_preference_info_obj(item,preference_info_obj)
         }
     });
-
     function get_preference_info_obj(item,preference_info_obj) {
-        var get_summary_for_object_of_discount_rate = function (this_item,type) {
-            return Math.floor(this_item.subtotal/type.discount_rate.top)*type.discount_rate.reduce;
-        };
+        //var get_summary_for_object_of_discount_rate = function (this_item,type) {
+        //    return Math.floor(this_item.subtotal/type.discount_rate.top)*type.discount_rate.reduce;
+        //};
         _(item.type).each(function (type) {
-            var promotion_info_from_one_type = {};
-            if (type.special) {
+            var promotion_info_from_one_type = calculationManager.factory(type,item);
+           /* if (type.special) {
                 promotion_info_from_one_type = {
                     name: type.special,
                     sum: item.subtotal,
@@ -81,19 +129,21 @@ Calculate.prototype._preference_from_type_discount = function(){
                     name: item.name+type.name,
                     sum: Math.round(item.subtotal*(1-type.discount_rate))
                 };
-                console.log(item.subtotal*(1-type.discount_rate));
+                //console.log(item.subtotal*(1-type.discount_rate));
             }
             else if(typeof(type.discount_rate) == "object") {
                 promotion_info_from_one_type = {
                     name: type.name,
-                    sum: get_summary_for_object_of_discount_rate(item,type)
+                    sum:  Math.floor(item.subtotal/type.discount_rate.top)*type.discount_rate.reduce
                 };
             } else {
+                console.log(type,'type');
+                console.log(item,"item");
                 promotion_info_from_one_type = {
                     name: type.name,
                     sum: Math.round(item.subtotal * (1-type.discount_rate))
                 };
-            }
+            }*/
             if (exist_this_preferential_name(promotion_info_from_one_type.name, preference_info_obj)) {
                 get_this_promotion_info_obj(promotion_info_from_one_type.name, preference_info_obj).sum += promotion_info_from_one_type.sum;
             } else {
@@ -105,7 +155,7 @@ Calculate.prototype._preference_from_type_discount = function(){
     this.preference_info_obj = preference_info_obj;
 };
 
-Calculate.prototype.get_preference_info_obj = function(){
+Calculator.prototype.get_preference_info_obj = function(){
     this.preference_info_obj = _(this.preference_info_obj).filter(function(info_obj){
         return info_obj.sum>0
     });

@@ -202,16 +202,16 @@ function del_fullduce_from_have_other_promotion_info(items,type) {
 
 function not_exist_brand_and_single_discount(types) {
     var exist_brand_discount = _(types).some(function (type) {
-        return type.type == "brand discount"
+        return type.type == "brand_discount"
     });
     var exist_single_produce_discount = _(types).some(function (type) {
-        return type.type == "single produce discount"
+        return type.type == "single_produce_discount"
     });
     return exist_brand_discount && exist_single_produce_discount;
 }
 function delete_invalid_type(item) {
     if (not_exist_brand_and_single_discount(item.type)) {
-        var index_number = _(item.type).indexOf(_(item.type).findWhere({type: 'single produce discount'}));
+        var index_number = _(item.type).indexOf(_(item.type).findWhere({type: 'single_produce_discount'}));
         item.type.splice(index_number, 1);
     }
 }
@@ -232,12 +232,12 @@ function get_besides_barcode_from_this_promotion(promotions) {
 function get_promotion_A() {
     var promotion_A = [];
     promotion_A.push(
-        new Generate_promotion('brand discount', '可口可乐品牌打折', 0.9, {barcode: ['ITEM000000', 'ITEM000010']}).discount());
+        new Generate_promotion('brand_discount', '可口可乐品牌打折', 0.9, {barcode: ['ITEM000000', 'ITEM000010']}).discount());
     promotion_A.push(
-        new Generate_promotion('single produce discount', '单品打折', 0.95, {barcode: ['ITEM000000']}).discount());
+        new Generate_promotion('single_produce_discount', '单品打折', 0.95, {barcode: ['ITEM000000']}).discount());
     promotion_A.push(
         new Generate_promotion(
-            'all produce fullreduce', '满100减3',
+            'all_produce_fullreduce', '满100减3',
             {top: 100, reduce: 3}, {besides_barcode: ['ITEM000005'], barcode: "all"}).fullreduce()
     );
     return promotion_A;

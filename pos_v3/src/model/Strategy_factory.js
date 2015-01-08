@@ -6,7 +6,8 @@ function Strategy_factory(){
 }
 
 Strategy_factory.prototype.createStrategyA = function(){
-    console.log("A");
+    console.log("A1");
+    //return new Strategy_factory.prototype['createStrategyB'];
 };
 Strategy_factory.prototype.createStrategyB = function(){
     console.log("B");
@@ -16,6 +17,7 @@ Strategy_factory.prototype.createStrategyC = function(){
 };
 Strategy_factory.prototype.createStrategyD = function(){
     console.log("D");
+
 };
 Strategy_factory.prototype.select_strategy = function(typeFactory){
 
