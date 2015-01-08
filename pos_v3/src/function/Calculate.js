@@ -39,34 +39,7 @@ function get_this_promotion_info_obj(name, preference_info_obj) {
     })[0]
 }
 
-function Calculator(items){ //calculator
-    this.items = items;
-    this.preference_info_obj=[];
 
-}
-Calculator.prototype.calculate = function () {
-    this._preference_from_type_discount();//calculate
-    this._preference_from_type_fullreduce();
-};
-Calculator.prototype._preference_from_type_fullreduce = function(){
-    _(this.preference_info_obj).each(function(info_obj){
-        if(typeof (info_obj.type) == 'object'){
-            info_obj.sum = Math.floor(info_obj.sum/info_obj.type.top)*info_obj.type.reduce;
-        }
-    })
-};
-
-/*Calculate.prototype._create_specail_type = function(type,item){
-    return {
-        name: type.special,
-        sum: item.subtotal,
-        type:type.discount_rate
-    };
-
-};
-Calculate.prototype._select_type_of_generate_preference_facetor = function(type_method,type,item){
-    return new Calculate.prototype[type_method](type,item);
-};*/
 var calculationManager = {};
 calculationManager.single_produce_discount = function(type,item){
     return {
@@ -100,9 +73,28 @@ calculationManager.factory = function(type,item){
         return new calculationManager["create_fullreduce"](type,item)
     } else {
         console.log(type);
-            return new calculationManager[type.type](type,item)
-        }
+        return new calculationManager[type.type](type,item)
+    }
 };
+
+function Calculator(items){ //calculator
+    this.items = items;
+    this.preference_info_obj=[];
+
+}
+Calculator.prototype.calculate = function () {
+    this._preference_from_type_discount();//calculate
+    this._preference_from_type_fullreduce();
+};
+Calculator.prototype._preference_from_type_fullreduce = function(){
+    _(this.preference_info_obj).each(function(info_obj){
+        if(typeof (info_obj.type) == 'object'){
+            info_obj.sum = Math.floor(info_obj.sum/info_obj.type.top)*info_obj.type.reduce;
+        }
+    })
+};
+
+
 
 Calculator.prototype._preference_from_type_discount = function(){
     var preference_info_obj=[];
