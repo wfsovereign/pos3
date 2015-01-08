@@ -106,44 +106,14 @@ calculationManager.factory = function(type,item){
 
 Calculator.prototype._preference_from_type_discount = function(){
     var preference_info_obj=[];
-    var items = this.items;
-    _(items).each(function(item){
+    _(this.items).each(function(item){
         if(item.type.length>0){
              get_preference_info_obj(item,preference_info_obj)
         }
     });
     function get_preference_info_obj(item,preference_info_obj) {
-        //var get_summary_for_object_of_discount_rate = function (this_item,type) {
-        //    return Math.floor(this_item.subtotal/type.discount_rate.top)*type.discount_rate.reduce;
-        //};
         _(item.type).each(function (type) {
             var promotion_info_from_one_type = calculationManager.factory(type,item);
-           /* if (type.special) {
-                promotion_info_from_one_type = {
-                    name: type.special,
-                    sum: item.subtotal,
-                    type:type.discount_rate
-                };
-            }else if(type.type == "single produce discount"){
-                promotion_info_from_one_type = {
-                    name: item.name+type.name,
-                    sum: Math.round(item.subtotal*(1-type.discount_rate))
-                };
-                //console.log(item.subtotal*(1-type.discount_rate));
-            }
-            else if(typeof(type.discount_rate) == "object") {
-                promotion_info_from_one_type = {
-                    name: type.name,
-                    sum:  Math.floor(item.subtotal/type.discount_rate.top)*type.discount_rate.reduce
-                };
-            } else {
-                console.log(type,'type');
-                console.log(item,"item");
-                promotion_info_from_one_type = {
-                    name: type.name,
-                    sum: Math.round(item.subtotal * (1-type.discount_rate))
-                };
-            }*/
             if (exist_this_preferential_name(promotion_info_from_one_type.name, preference_info_obj)) {
                 get_this_promotion_info_obj(promotion_info_from_one_type.name, preference_info_obj).sum += promotion_info_from_one_type.sum;
             } else {
@@ -151,7 +121,6 @@ Calculator.prototype._preference_from_type_discount = function(){
             }
         });
     }
-
     this.preference_info_obj = preference_info_obj;
 };
 
