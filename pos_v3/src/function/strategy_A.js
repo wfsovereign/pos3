@@ -253,7 +253,7 @@ function Strategy_A(receipt_items) {
     });
     del_fullduce_from_have_other_promotion_info(receipt_items,have_besides_barcode_promotion.type);
     del_single_discount_from_exist_single_and_brand_discount(receipt_items);
-    //return receipt_items;
+    return receipt_items;
 }
 
 
