@@ -2,14 +2,7 @@
  * Created by wfsovereign on 14-12-31.
  */
 
-//function caculate_sum(not_preferential_items) {
-//    var sum =0;
-//    _(not_preferential_items).each(function(item){
-//        sum+=item.subtotal;
-//    });
-//    sum = Math.ceil(sum/100)*3;
-//    return sum;
-//}
+
 function calculate_subtotal_for_receipt_items(receipt_items) {
     var subtotal =0;
     _(receipt_items).each(function(item) {
@@ -44,7 +37,7 @@ var calculationManager = {};
 calculationManager.single_produce_discount = function(type,item){
     return {
         name: item.name+type.name,
-        sum: Math.round(item.subtotal*(1-type.discount_rate))
+        sum: parseFloat(parseFloat((item.subtotal*(1-type.discount_rate)).toFixed(1)).toFixed(2))
     }
 };
 calculationManager.create_fullreduce = function(type,item){
@@ -57,13 +50,14 @@ calculationManager.create_special =function(type,item){
     return {
         name: type.special,
         sum: item.subtotal,
-        type:type.discount_rate
+        discount_rate:type.discount_rate,
+        type:type.type
     }
 };
 calculationManager.brand_discount = function(type,item){
     return {
         name: type.name,
-        sum: Math.round(item.subtotal * (1-type.discount_rate))
+        sum: parseFloat(parseFloat((item.subtotal * (1-type.discount_rate)).toFixed(1)).toFixed(2))
     }
 };
 calculationManager.factory = function(type,item){
@@ -72,10 +66,23 @@ calculationManager.factory = function(type,item){
     }else if(typeof (type.discount_rate) == "object"){
         return new calculationManager["create_fullreduce"](type,item)
     } else {
-        console.log(type);
+
         return new calculationManager[type.type](type,item)
     }
 };
+
+
+
+function exist_brand_and_all_fullreduce(full_reduce_obj) {
+    var exist_brand_fullreduce = _(full_reduce_obj).some(function (obj) {
+        return obj.type == "brand_produce_fullreduce"
+    });
+    var exist_all_fullreduce = _(full_reduce_obj).some(function (obj) {
+        return obj.type == "all_produce_fullreduce"
+    });
+    return exist_brand_fullreduce && exist_all_fullreduce;
+}
+
 
 function Calculator(items){
     this.items = items;
@@ -84,33 +91,87 @@ function Calculator(items){
 }
 
 Calculator.prototype._preference_from_type_fullreduce = function(){
-    _(this.preference_info_obj).each(function(info_obj){
-        if(typeof (info_obj.type) == 'object'){
-            info_obj.sum = Math.floor(info_obj.sum/info_obj.type.top)*info_obj.type.reduce;
-        }
-    })
+    if(exist_brand_and_all_fullreduce(this.preference_info_obj)){
+        var brand_fullreduce_sum = 0;
+        _(this.preference_info_obj).each(function(info_obj){
+            if(info_obj.type == "brand_produce_fullreduce"){
+                info_obj.sum = Math.floor(info_obj.sum/info_obj.discount_rate.top)*info_obj.discount_rate.reduce;
+                brand_fullreduce_sum += info_obj.sum;
+            }else if(info_obj.type != "all_produce_fullreduce"){
+
+                brand_fullreduce_sum += info_obj.sum;
+            }
+        });
+        _(this.preference_info_obj).each(function(info_obj){
+            if(info_obj.type == "all_produce_fullreduce"){
+                info_obj.sum = Math.floor((info_obj.sum-brand_fullreduce_sum)/info_obj.discount_rate.top)*info_obj.discount_rate.reduce;
+            }
+        });
+
+    }else{
+        _(this.preference_info_obj).each(function(info_obj){
+            if(typeof (info_obj.discount_rate) == 'object'){
+                info_obj.sum = Math.floor(info_obj.sum/info_obj.discount_rate.top)*info_obj.discount_rate.reduce;
+            }
+        });
+    }
 };
 
+Calculator.prototype._first_single_then_brand = function(){
+    var preference_info_obj = [];
+
+    function get_preference_info_obj_from_array_type(item, preference_info_obj) {
+            if(item.type.length>2) {
+                var item_sub = item.subtotal;
+                var single_type = _(item.type).findWhere({type: "single_produce_discount"});
+                var single_info_from_one_type = calculationManager.factory(single_type, item);
+                item.subtotal =item_sub - single_info_from_one_type.sum;
+                add_one_preference_info_info(single_info_from_one_type, preference_info_obj);
+                var brand_type = _(item.type).findWhere({type: "brand_discount"});
+                var brand_info_from_one_type = calculationManager.factory(brand_type, item);
+                add_one_preference_info_info(brand_info_from_one_type, preference_info_obj);
+                var all_fullreduce_type = _(item.type).findWhere({type: "all_produce_fullreduce"});
+                var all_fullreduce_info_from_one_type = calculationManager.factory(all_fullreduce_type, item);
+                add_one_preference_info_info(all_fullreduce_info_from_one_type,preference_info_obj);
+            }else{
+                _(item.type).each(function (type) {
+                    var promotion_info_from_one_type = calculationManager.factory(type,item);
+                    add_one_preference_info_info(promotion_info_from_one_type, preference_info_obj);
+                });
+            }
+    }
+    _(this.items).each(function(item){
+        get_preference_info_obj_from_array_type(item,preference_info_obj);
+    });
+    this.preference_info_obj = preference_info_obj;
+};
+
+
+function add_one_preference_info_info(promotion_info_from_one_type, preference_info_obj) {
+    if (exist_this_preferential_name(promotion_info_from_one_type.name, preference_info_obj)) {
+        get_this_promotion_info_obj(promotion_info_from_one_type.name, preference_info_obj).sum += promotion_info_from_one_type.sum;
+    } else {
+        preference_info_obj.push(promotion_info_from_one_type);
+    }
+}
 Calculator.prototype._preference_from_type_discount = function(){
     var preference_info_obj=[];
     _(this.items).each(function(item){
-        if(item.type.length>0){
              get_preference_info_obj(item,preference_info_obj)
-        }
     });
     function get_preference_info_obj(item,preference_info_obj) {
         _(item.type).each(function (type) {
             var promotion_info_from_one_type = calculationManager.factory(type,item);
-            if (exist_this_preferential_name(promotion_info_from_one_type.name, preference_info_obj)) {
-                get_this_promotion_info_obj(promotion_info_from_one_type.name, preference_info_obj).sum += promotion_info_from_one_type.sum;
-            } else {
-                preference_info_obj.push(promotion_info_from_one_type);
-            }
+            add_one_preference_info_info(promotion_info_from_one_type, preference_info_obj);
         });
     }
     this.preference_info_obj = preference_info_obj;
 };
 
+Calculator.prototype.calculate_base = function(){
+    this._first_single_then_brand();
+    this._preference_from_type_fullreduce()
+};
 Calculator.prototype.calculate = function () {
     this._preference_from_type_discount();
     this._preference_from_type_fullreduce();

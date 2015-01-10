@@ -185,7 +185,6 @@ function del_type_to_this_item(type, item) {
     }
 }
 function del_promotion_info_from_this_barcode(barcode,items,type) {
-
     _(items).each(function(item){
         if(barcode == item.barcode){
             del_type_to_this_item(type,item);

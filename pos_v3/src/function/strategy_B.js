@@ -22,7 +22,6 @@ function get_promotion_B() {
 
 function delete_brand_discount_type(item) {
     if (not_exist_brand_and_single_discount(item.type)) {
-        console.log("===============");
         var index_number = _(item.type).indexOf(_(item.type).findWhere({type: 'brand_discount'}));
         item.type.splice(index_number, 1);
     }
@@ -30,7 +29,6 @@ function delete_brand_discount_type(item) {
 function del_invalid_discount_from_exist_single_and_brand_discount_for_B(items) {
     _(items).each(function(item){
         if(item.type.length>1){
-            console.log("----------------------");
             delete_brand_discount_type(item);
         }
     });
@@ -38,9 +36,14 @@ function del_invalid_discount_from_exist_single_and_brand_discount_for_B(items) 
 
 function filter_item_of_not_have_type(items) {
     return _(items).filter(function(item){
-        return item.type != undefined;
+        if(item.type){
+            return item.type.length>0;
+        }else{
+            return item.type != undefined;
+        }
     })
 }
+
 function Strategy_B(receipt_items){
     var regulation_of_strategy_B = get_promotion_B();
     _(receipt_items).each(function (item) {

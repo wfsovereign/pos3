@@ -8,6 +8,5 @@ function printInventoryB(inputs){
     var calculator= new Calculator(items_for_calculate);
     calculator.calculate();
     var result = build_receipt_result(receipt_items,calculator.get_preference_info_obj());
-    //console.log(calculate.get_preference_info_obj(),"promotion_item");
     console.log(result);
 }
