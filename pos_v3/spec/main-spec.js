@@ -75,6 +75,7 @@ describe("strategy_B of the mianspec",function(){
 });
 
 
+
 describe("strategy_C of the mianspec",function(){
 
     var inputs;
@@ -111,6 +112,47 @@ describe("strategy_C of the mianspec",function(){
             '节省：44.70(元)\n' +
             '**********************';
         printInventoryC(inputs);
+        expect(console.log).toHaveBeenCalledWith(expectText)
+    })
+});
+
+describe("strategy_D of the mianspec",function(){
+
+    var inputs;
+    beforeEach(function () {
+
+        inputs = [
+            { 'ITEM000000' : 20 },
+            { 'ITEM000010' : 30 },
+            { 'ITEM000001' : 30 },
+            { 'ITEM000007' : 40 },
+            { 'ITEM000003' : 8  },
+            { 'ITEM000002' : 14 }
+        ];
+    });
+
+    it("should output correct promotion of strategy_D",function(){
+        spyOn(console, 'log');
+        printInventoryD(inputs);
+        var expectText =
+            '***<没钱赚商店>购物清单***\n' +
+            '名称：可口可乐350ml，数量：20瓶，单价：3.00(元)，小计：60.00(元)\n' +
+            '名称：可口可乐550ml，数量：30瓶，单价：4.00(元)，小计：120.00(元)\n' +
+            '名称：雪碧，数量：30瓶，单价：3.00(元)，小计：90.00(元)\n' +
+            '名称：果粒橙，数量：40瓶，单价：3.50(元)，小计：140.00(元)\n' +
+            '名称：云山荔枝，数量：8斤，单价：15.00(元)，小计：120.00(元)\n' +
+            '名称：云山苹果，数量：14斤，单价：5.50(元)，小计：77.00(元)\n' +
+            '----------------------\n' +
+            '优惠信息：\n' +
+            '名称：可口可乐品牌打折，金额：18.00元\n' +
+            '名称：可口可乐350ml单品打折，金额：3.00元\n' +
+            '名称：九折，金额：48.90元\n' +
+            '名称：果粒橙满100减5，金额：5.00元\n' +
+            '名称：云山品牌满100减2，金额：2.00元\n' +
+            '----------------------\n' +
+            '总计：530.10(元)\n' +
+            '节省：76.90(元)\n' +
+            '**********************';
         expect(console.log).toHaveBeenCalledWith(expectText)
     })
 });

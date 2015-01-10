@@ -32,6 +32,11 @@ function get_this_promotion_info_obj(name, preference_info_obj) {
     })[0]
 }
 
+function exist_all_discount(preference_info_obj) {
+    return _(preference_info_obj).some(function(info_obj){
+        return info_obj.type == "all_produce_discount"
+    })
+}
 
 var calculationManager = {};
 calculationManager.single_produce_discount = function(type,item){
@@ -90,6 +95,7 @@ function Calculator(items){
 
 }
 
+
 Calculator.prototype._preference_from_type_fullreduce = function(){
     if(exist_brand_and_all_fullreduce(this.preference_info_obj)){
         var brand_fullreduce_sum = 0;
@@ -107,8 +113,20 @@ Calculator.prototype._preference_from_type_fullreduce = function(){
                 info_obj.sum = Math.floor((info_obj.sum-brand_fullreduce_sum)/info_obj.discount_rate.top)*info_obj.discount_rate.reduce;
             }
         });
-
-    }else{
+    }else if(exist_all_discount(this.preference_info_obj)){
+        var all_preference_sum = 0;
+        _(this.preference_info_obj).each(function(info_obj){
+            if(typeof (info_obj.discount_rate) == 'object'){
+                info_obj.sum = Math.floor(info_obj.sum/info_obj.discount_rate.top)*info_obj.discount_rate.reduce;
+            }
+            all_preference_sum += info_obj.sum;
+        });
+        _(this.preference_info_obj).each(function(info_obj){
+            if(info_obj.type == "all_produce_discount"){
+                info_obj.sum = ((info_obj.sum*2)-all_preference_sum)*(1-info_obj.discount_rate);
+            }
+        });
+    }else {
         _(this.preference_info_obj).each(function(info_obj){
             if(typeof (info_obj.discount_rate) == 'object'){
                 info_obj.sum = Math.floor(info_obj.sum/info_obj.discount_rate.top)*info_obj.discount_rate.reduce;
@@ -119,7 +137,6 @@ Calculator.prototype._preference_from_type_fullreduce = function(){
 
 Calculator.prototype._first_single_then_brand = function(){
     var preference_info_obj = [];
-
     function get_preference_info_obj_from_array_type(item, preference_info_obj) {
             if(item.type.length>2) {
                 var item_sub = item.subtotal;
