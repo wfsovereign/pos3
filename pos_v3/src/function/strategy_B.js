@@ -51,5 +51,7 @@ function Strategy_B(receipt_items){
     });
     receipt_items = filter_item_of_not_have_type(receipt_items);
     del_invalid_discount_from_exist_single_and_brand_discount_for_B(receipt_items);
-    return receipt_items;
+    var calculator= new Calculator(items_for_calculate);
+    calculator.calculate();
+    return calculator.get_preference_info_obj();
 }
