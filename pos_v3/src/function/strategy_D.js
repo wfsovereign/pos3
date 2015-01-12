@@ -33,7 +33,6 @@ function get_promotion_D() {
 
 function Strategy_D(receipt_items) {
     var regulation_of_strategy_D = get_promotion_D();
-
     _(receipt_items).each(function (item) {
         add_promotion_info_from_this_promotion(regulation_of_strategy_D, item)
     });
