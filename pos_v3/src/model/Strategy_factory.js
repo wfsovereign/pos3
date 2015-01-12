@@ -5,23 +5,23 @@ function Strategy_factory(){
 
 }
 
-Strategy_factory.prototype.createStrategyA = function(){
-    console.log("A1");
+Strategy_factory.prototype.createStrategyA = function(items){
+    return Strategy_A(items);
     //return new Strategy_factory.prototype['createStrategyB'];
 };
-Strategy_factory.prototype.createStrategyB = function(){
-    console.log("B");
+Strategy_factory.prototype.createStrategyB = function(items){
+    return Strategy_B(items);
 };
-Strategy_factory.prototype.createStrategyC = function(){
-    console.log("C");
+Strategy_factory.prototype.createStrategyC = function(items){
+    return Strategy_C(items);
 };
-Strategy_factory.prototype.createStrategyD = function(){
-    console.log("D");
+Strategy_factory.prototype.createStrategyD = function(items){
+    return Strategy_D(items)
 
 };
-Strategy_factory.prototype.select_strategy = function(typeFactory){
+Strategy_factory.prototype.select_strategy = function(typeFactory,items){
 
-    return new Strategy_factory.prototype[typeFactory]
+    return new Strategy_factory.prototype[typeFactory](items)
 };
 
 //var factory = new Strategy_factory();
