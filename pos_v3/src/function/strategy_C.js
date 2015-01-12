@@ -3,8 +3,6 @@
  * Created by wfsovereign on 15-1-8.
  */
 
-
-
 function get_promotion_C() {
     var promotion_C =[];
     promotion_C.push(
@@ -36,8 +34,9 @@ function Strategy_C(receipt_items){
     _(have_besides_barcode_promotion.barcode.besides_barcode).each(function (barcode) {
         del_promotion_info_from_this_barcode(barcode, receipt_items,have_besides_barcode_promotion.type);
     });
-    receipt_items = filter_item_of_not_have_type(receipt_items);
+    var have_type_receipt_items = filter_item_of_not_have_type(receipt_items);
+    var calculator= new Calculator(have_type_receipt_items);
+    calculator.calculate_base();
 
-    //console.log(receipt_items)
-    return receipt_items;
+    return calculator.get_preference_info_obj();
 }

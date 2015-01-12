@@ -40,5 +40,7 @@ function Strategy_D(receipt_items) {
     _(have_besides_barcode_promotion.barcode.besides_barcode).each(function (barcode) {
         del_promotion_info_from_this_barcode(barcode, receipt_items,have_besides_barcode_promotion.type);
     });
-    return receipt_items;
+    var calculator= new Calculator(receipt_items);
+    calculator.calculate();
+    return calculator.get_preference_info_obj();
 }
