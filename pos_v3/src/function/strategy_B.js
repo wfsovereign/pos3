@@ -34,15 +34,7 @@ function del_invalid_discount_from_exist_single_and_brand_discount_for_B(items) 
     });
 }
 
-function filter_item_of_not_have_type(items) {
-    return _(items).filter(function(item){
-        if(item.type){
-            return item.type.length>0;
-        }else{
-            return item.type != undefined;
-        }
-    })
-}
+
 
 function Strategy_B(receipt_items){
     var regulation_of_strategy_B = get_promotion_B();
@@ -51,7 +43,7 @@ function Strategy_B(receipt_items){
     });
     receipt_items = filter_item_of_not_have_type(receipt_items);
     del_invalid_discount_from_exist_single_and_brand_discount_for_B(receipt_items);
-    var calculator= new Calculator(items_for_calculate);
+    var calculator= new Calculator(receipt_items);
     calculator.calculate();
     return calculator.get_preference_info_obj();
 }

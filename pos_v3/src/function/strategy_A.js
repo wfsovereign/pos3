@@ -115,63 +115,6 @@ function build_preferential_info_obj_from_receipt_items(items) {
 */
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function exist_this_promotion(barcode, barcodes) {
-    if (barcodes == "all") {
-        return true
-    } else if (barcodes) {
-        var result = _(barcodes).find(function (bar) {
-            if (bar == barcode) {
-                return bar
-            }
-        });
-        return result != undefined
-    }
-    return false
-}
-
-function add_type_to_item(item, promotion) {
-    if (item.type) {
-        var type = {
-            type: promotion.type,
-            name: promotion.name,
-            discount_rate: promotion.discount_rate,
-            special: promotion.special
-        };
-        item.type.push(type);
-    } else {
-        item.type = [{
-            type: promotion.type,
-            name: promotion.name,
-            discount_rate: promotion.discount_rate,
-            special: promotion.special
-        }]
-    }
-}
-
-
-function add_promotion_info_from_this_promotion(promotions, item) {
-    _(promotions).each(function (promotion) {
-        if (exist_this_promotion(item.barcode, promotion.barcode.barcode)) {
-            add_type_to_item(item, promotion);
-        }
-    });
-}
-
 function del_type_to_this_item(type, item) {
    var count = 0,index;
     _(item.type).each(function(item_type){
