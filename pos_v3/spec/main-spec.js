@@ -1,4 +1,4 @@
-describe('pos_strategyA of the mianspec', function () {
+describe('pos_strategyA of the main spec', function () {
     var allItems;
     var inputs;
 
@@ -14,7 +14,7 @@ describe('pos_strategyA of the mianspec', function () {
 
     it('should print correct text', function () {
         spyOn(console, 'log');
-        printInventory(inputs);
+        printInventory(inputs,"createStrategyA");
         var expectText =
             '***<没钱赚商店>购物清单***\n' +
             '名称：可口可乐350ml，数量：20瓶，单价：3.00(元)，小计：60.00(元)\n' +
@@ -34,7 +34,7 @@ describe('pos_strategyA of the mianspec', function () {
 
 });
 
-describe("strategy_B of the mianspec",function(){
+describe("strategy_B of the main spec",function(){
 
     var inputs;
     beforeEach(function () {
@@ -51,7 +51,7 @@ describe("strategy_B of the mianspec",function(){
 
     it("should output correct promotion of strategy_B",function(){
         spyOn(console, 'log');
-        printInventoryB(inputs);
+        printInventory(inputs,'createStrategyB');
         var expectText =
             '***<没钱赚商店>购物清单***\n' +
             '名称：可口可乐350ml，数量：20瓶，单价：3.00(元)，小计：60.00(元)\n' +
@@ -111,12 +111,12 @@ describe("strategy_C of the mianspec",function(){
             '总计：542.30(元)\n' +
             '节省：44.70(元)\n' +
             '**********************';
-        printInventoryC(inputs);
+        printInventory(inputs,"createStrategyC");
         expect(console.log).toHaveBeenCalledWith(expectText)
     })
 });
 
-describe("strategy_D of the mianspec",function(){
+describe("strategy_D of the main spec",function(){
 
     var inputs;
     beforeEach(function () {
@@ -133,7 +133,7 @@ describe("strategy_D of the mianspec",function(){
 
     it("should output correct promotion of strategy_D",function(){
         spyOn(console, 'log');
-        printInventoryD(inputs);
+        printInventory(inputs,"createStrategyD");
         var expectText =
             '***<没钱赚商店>购物清单***\n' +
             '名称：可口可乐350ml，数量：20瓶，单价：3.00(元)，小计：60.00(元)\n' +

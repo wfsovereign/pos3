@@ -4,18 +4,23 @@
 function transfer_obj(items_for_calculate) {
     var items = [];
     _(items_for_calculate).each(function (item) {
-        items.push({
-            barcode: item.barcode,
-            brand: item.brand,
-            count: item.count,
-            name: item.name,
-            price: item.price,
-            subtotal: item.subtotal,
-            type: item.type,
-            unit: item.unit
-        });
+    //mark
+        //items.push({
+        //    barcode: item.barcode,
+        //    brand: item.brand,
+        //    count: item.count,
+        //    name: item.name,
+        //    price: item.price,
+        //    subtotal: item.subtotal,
+        //    type: item.type,
+        //    unit: item.unit
+        //});
+        items.push(Object.create(item));
     });
+    console.info(items,"items");
+    console.info(Object.create(items_for_calculate),"2");
     return items;
+    //return Object.create(items_for_calculate);
 }
 
 
@@ -60,6 +65,7 @@ function add_promotion_info_from_this_promotion(promotions, item) {
         }
     });
 }
+
 
 function filter_item_of_not_have_type(items) {
     return _(items).filter(function(item){

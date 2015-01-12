@@ -59,3 +59,35 @@ function build_receipt_result(receipt_items,preference_info_obj) {
     }
     return result;
 }
+
+function Build_receipt_result(receipt_items,preference_info_obj){
+    this.items = receipt_items;
+    this.preference_info_obj = preference_info_obj;
+    this.result = "";
+}
+
+Build_receipt_result.prototype.generate_receipt_result = function(){
+    this.result += '***<没钱赚商店>购物清单***\n';
+    this.result += build_paid_item_string(this.items);
+    var subtotal = calculate_subtotal_for_receipt_items(this.items);
+    if(this.preference_info_obj != undefined){
+        var save_money = calculate_save_money_for_preference_info_obj(this.preference_info_obj);
+        this.result += '----------------------\n' +
+        '优惠信息：\n';
+        this.result += build_preferential_info_string(this.preference_info_obj);
+        this.result += '----------------------\n' +
+        '总计：'+(subtotal-save_money).toFixed(2)+'(元)\n' +
+        '节省：'+save_money.toFixed(2)+'(元)\n' +
+        '**********************';
+    }else{
+        this.result += '----------------------\n' +
+        '总计：'+subtotal.toFixed(2)+'(元)\n' +
+        '**********************';
+    }
+};
+
+Build_receipt_result.prototype.get_result = function() {
+    this.generate_receipt_result();
+    return this.result;
+};
+
