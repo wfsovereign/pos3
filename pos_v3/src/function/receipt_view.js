@@ -38,27 +38,27 @@ function build_preferential_info_string(preferential_info_obj) {
 }
 
 
-function build_receipt_result(receipt_items,preference_info_obj) {
-    var result = "";
-    result += '***<没钱赚商店>购物清单***\n';
-    result += build_paid_item_string(receipt_items);
-    var subtotal = calculate_subtotal_for_receipt_items(receipt_items);
-    if(preference_info_obj != undefined){
-        var save_money = calculate_save_money_for_preference_info_obj(preference_info_obj);
-        result += '----------------------\n' +
-        '优惠信息：\n';
-        result+= build_preferential_info_string(preference_info_obj);
-        result += '----------------------\n' +
-        '总计：'+(subtotal-save_money).toFixed(2)+'(元)\n' +
-        '节省：'+save_money.toFixed(2)+'(元)\n' +
-        '**********************';
-    }else{
-        result += '----------------------\n' +
-        '总计：'+subtotal.toFixed(2)+'(元)\n' +
-        '**********************';
-    }
-    return result;
-}
+//function build_receipt_result(receipt_items,preference_info_obj) {
+//    var result = "";
+//    result += '***<没钱赚商店>购物清单***\n';
+//    result += build_paid_item_string(receipt_items);
+//    var subtotal = calculate_subtotal_for_receipt_items(receipt_items);
+//    if(preference_info_obj != undefined){
+//        var save_money = calculate_save_money_for_preference_info_obj(preference_info_obj);
+//        result += '----------------------\n' +
+//        '优惠信息：\n';
+//        result+= build_preferential_info_string(preference_info_obj);
+//        result += '----------------------\n' +
+//        '总计：'+(subtotal-save_money).toFixed(2)+'(元)\n' +
+//        '节省：'+save_money.toFixed(2)+'(元)\n' +
+//        '**********************';
+//    }else{
+//        result += '----------------------\n' +
+//        '总计：'+subtotal.toFixed(2)+'(元)\n' +
+//        '**********************';
+//    }
+//    return result;
+//}
 
 function Build_receipt_result(receipt_items,preference_info_obj){
     this.items = receipt_items;

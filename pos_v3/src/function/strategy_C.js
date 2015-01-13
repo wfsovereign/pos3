@@ -4,7 +4,40 @@
  */
 
 function get_promotion_C() {
-    var promotion_C =[];
+    var promotion_C =[],promotion = [];
+    var regulation_info_C = [
+        {
+            type: 'brand_discount',
+            name: '可口可乐品牌打折',
+            discount_rate: 0.9,
+            barcode: {barcode: ['ITEM000000', 'ITEM000010']},
+            special:null
+        },
+        {
+            type: 'single_produce_discount',
+            name: '单品打折',
+            discount_rate: 0.95,
+            barcode: {barcode: ['ITEM000000']},
+            special:null
+        },
+        {
+            type: 'brand_produce_fullreduce',
+            name: '满100减2',
+            discount_rate: {top: 100, reduce: 2},
+            barcode: {barcode: ['ITEM000005', 'ITEM000008']},
+            special:'康师傅品牌满100减2'
+        },
+        {
+            type: 'all_produce_fullreduce',
+            name: '满100减5',
+            discount_rate: {top: 100, reduce: 5},
+            barcode: {barcode:'all',besides_barcode:['ITEM000002']},
+            special:'满100减5'
+        }
+    ];
+    _(regulation_info_C).each(function(info){
+        promotion.push(new Generate_promotion(info.type,info.name,info.discount_rate,info.barcode,info.special))
+    });
     promotion_C.push(
         new Generate_promotion('brand_discount', '可口可乐品牌打折',
             0.9, {barcode: ['ITEM000000', 'ITEM000010']}).discount());
@@ -20,7 +53,9 @@ function get_promotion_C() {
             'all_produce_fullreduce', '满100减5',
             {top: 100, reduce: 5}, {barcode:'all',besides_barcode:['ITEM000002']},'满100减5').fullreduce()
     );
-    return promotion_C;
+    console.info(promotion,"promotion");
+    console.info(promotion_C,"C");
+    return promotion;
 }
 
 

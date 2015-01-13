@@ -17,8 +17,8 @@ function transfer_obj(items_for_calculate) {
         //});
         items.push(Object.create(item));
     });
-    console.info(items,"items");
-    console.info(Object.create(items_for_calculate),"2");
+    //console.info(items,"items");
+    //console.info(Object.create(items_for_calculate),"2");
     return items;
     //return Object.create(items_for_calculate);
 }
