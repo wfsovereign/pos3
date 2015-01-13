@@ -1,3 +1,4 @@
+
 /**
  *
  * Created by wfsovereign on 15-1-8.
@@ -35,27 +36,25 @@ function get_promotion_C() {
             special:'满100减5'
         }
     ];
-    _(regulation_info_C).each(function(info){
-        promotion.push(new Generate_promotion(info.type,info.name,info.discount_rate,info.barcode,info.special))
-    });
-    promotion_C.push(
-        new Generate_promotion('brand_discount', '可口可乐品牌打折',
-            0.9, {barcode: ['ITEM000000', 'ITEM000010']}).discount());
-    promotion_C.push(
-        new Generate_promotion('single_produce_discount', '单品打折', 0.95, {barcode: ['ITEM000000']}).discount());
-    promotion_C.push(
-        new Generate_promotion(
-            'brand_produce_fullreduce', '满100减2',
-            {top: 100, reduce: 2}, {barcode:['ITEM000005','ITEM000008']},"康师傅品牌满100减2").fullreduce()
-    );
-    promotion_C.push(
-        new Generate_promotion(
-            'all_produce_fullreduce', '满100减5',
-            {top: 100, reduce: 5}, {barcode:'all',besides_barcode:['ITEM000002']},'满100减5').fullreduce()
-    );
-    console.info(promotion,"promotion");
-    console.info(promotion_C,"C");
-    return promotion;
+    //promotion_C.push(
+    //    new Generate_promotion('brand_discount', '可口可乐品牌打折',
+    //        0.9, {barcode: ['ITEM000000', 'ITEM000010']}).discount());
+    //promotion_C.push(
+    //    new Generate_promotion('single_produce_discount', '单品打折', 0.95, {barcode: ['ITEM000000']}).discount());
+    //promotion_C.push(
+    //    new Generate_promotion(
+    //        'brand_produce_fullreduce', '满100减2',
+    //        {top: 100, reduce: 2}, {barcode:['ITEM000005','ITEM000008']},"康师傅品牌满100减2").fullreduce()
+    //);
+    //promotion_C.push(
+    //    new Generate_promotion(
+    //        'all_produce_fullreduce', '满100减5',
+    //        {top: 100, reduce: 5}, {barcode:'all',besides_barcode:['ITEM000002']},'满100减5').fullreduce()
+    //);
+    //console.info(promotion,"promotion");
+    //console.info(promotion_C,"C");
+    //console.info(promotion == promotion_C);
+    return Build_regulation_of_strategy(regulation_info_C);
 }
 
 

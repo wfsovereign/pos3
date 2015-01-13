@@ -23,7 +23,13 @@ function transfer_obj(items_for_calculate) {
     //return Object.create(items_for_calculate);
 }
 
-
+function Build_regulation_of_strategy(regulation_info_C) {
+    var promotion =[];
+    _(regulation_info_C).each(function (info) {
+        promotion.push(new Generate_promotion(info.type, info.name, info.discount_rate, info.barcode, info.special))
+    });
+    return promotion;
+}
 
 function exist_this_promotion(barcode, barcodes) {
     if (barcodes == "all") {
